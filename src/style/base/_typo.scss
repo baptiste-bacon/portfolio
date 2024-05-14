@@ -1,0 +1,18 @@
+.subtitle {
+  font-family: "Bricolage Grotesque", Arial;
+  font-variation-settings: "wght" 800;
+  font-size: 3.2rem;
+
+  color: $color-white;
+  
+  span{
+    margin-right: 1rem;
+  }
+
+  svg {
+    width: 3.2rem;
+    height: 3.2rem;
+
+    vertical-align: bottom;
+  }
+}

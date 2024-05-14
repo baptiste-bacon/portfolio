@@ -1,0 +1,74 @@
+html {
+  // 1rem = 10px
+  font-size: 62.5%;
+  // background: $color-p1;
+}
+
+.wrapper {
+  max-width: 144rem;
+  padding: 0 10rem;
+  margin: auto;
+
+  // opacity: 0;
+
+  &.loaded {
+    // opacity: 1;
+    // transition: opacity 0.5s ease-out 0.5s;
+  }
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.preloader {
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  // background: red;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  &Text{
+    position: absolute;
+    bottom: 6.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-family: 'Bricolage Grotesque', Arial;
+    font-size: 2.4rem;
+    color: $color-white;
+
+    opacity: 0;
+  }
+}
+
+
+// Handle canvas z-indexes
+canvas.preloader {
+  z-index: 998;
+}
+
+canvas.dom2Gl{
+  z-index: 1;
+  pointer-events: none;
+}
+
+canvas.experience {
+  z-index: -1;
+
+  pointer-events: none;
+
+  &.-hidden{
+    visibility: hidden;
+  }
+}
+
+

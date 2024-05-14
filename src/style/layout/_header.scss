@@ -1,0 +1,27 @@
+.header {
+  z-index: 99;
+  position: fixed;
+  width: 100%;
+  padding-top: 4rem;
+  margin: auto;
+
+  max-width: 144rem;
+
+  font-family: "Bricolage Grotesque", Arial;
+  font-size: 2.4rem;
+  color: $color-white;
+
+  display: flex;
+  justify-content: space-between;
+
+  &Logo {
+  }
+
+  &Links {
+    display: flex;
+    gap: 6.4rem;
+  }
+
+  &Item {
+  }
+}
