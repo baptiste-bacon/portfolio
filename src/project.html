@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PORTFOLIO 2024</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body data-barba="wrapper">
     <canvas class="preloader"></canvas>
     <div class="preloader">
-      <p class="preloaderText">scroll</p>
+      <div class="preloaderBar"></div>
     </div>
-    <header class="header">
-      <div class="headerLogo"></div>
-      <ul class="headerLinks">
-        <li class="headerItem">projects</li>
-        <li class="headerItem">about</li>
-        <li class="headerItem">contact</li>
+    <nav class="nav">
+      <div class="navLogo">
+        <a href="./index.html">home</a>
+      </div>
+      <ul class="navLinks">
+        <li class="navItem"><a href="#about">about</a></li>
+        <li class="navItem"><a href="#projects">projects</a></li>
+        <li class="navItem"><a href="#contact">contact</a></li>
       </ul>
-    </header>
+    </nav>
 
     <canvas class="dom2Gl"></canvas>
 
@@ -35,17 +31,22 @@
         </div>
 
         <figure class="heroFigure -cover">
-          <img class="heroImage" src="./assets/images/lipton.png" alt="" />
+          <img
+            class="heroImage"
+            src="./assets/images/lipton.png"
+            alt=""
+            data-img
+          />
         </figure>
 
         <div class="info">
           <div class="infoContent">
             <h6 class="infoTitle">Informations</h6>
             <p class="infoText">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse ac aliquet nibh. Aliquam posuere, tellus quis semper
-              cursus, mi sem lobortis mi, ac volutpat dui odio vel est. In eu
-              auctor dolor, vel dictum odio.
+              As a front-end developer at Troa, I had the opportunity to work on
+              an exciting project for the Lipton brand. My main role was to
+              design and integrate the majority of the Lipton Teas & Infusions
+              website, ensuring a smooth and immersive user experience.
             </p>
           </div>
 
@@ -75,31 +76,53 @@
         </div>
         <div class="container">
           <figure class="containerFigure -cover">
-            <img src="./assets/images/farret.png" alt="" class="infoImg" />
+            <img
+              src="./assets/images/farret.png"
+              alt=""
+              class="infoImg"
+              data-img
+            />
           </figure>
           <figure class="containerFigure -cover">
-            <img src="./assets/images/farret.png" alt="" class="infoImg" />
+            <img
+              src="./assets/images/farret.png"
+              alt=""
+              class="infoImg"
+              data-img
+            />
           </figure>
           <figure class="containerFigure -cover">
-            <img src="./assets/images/farret.png" alt="" class="infoImg" />
+            <img
+              src="./assets/images/farret.png"
+              alt=""
+              class="infoImg"
+              data-img
+            />
           </figure>
           <figure class="containerFigure -cover">
-            <img src="./assets/images/farret.png" alt="" class="infoImg" />
+            <img
+              src="./assets/images/farret.png"
+              alt=""
+              class="infoImg"
+              data-img
+            />
           </figure>
         </div>
       </div>
     </main>
-    <div class="footer">
-      <div class="footerHeader">
-        <p class="footerText">All Rights Reserved ©2024</p>
-        <div class="footerInner">
-          <a href="" class="footerText"><span>cv</span></a>
+    <footer class="footer">
+      <div class="footerWrapper">
+        <div class="footerHeader">
+          <p class="footerText">All Rights Reserved ©2024</p>
+          <div class="footerInner">
+            <!-- <a href="" class="footerText"><span>cv</span></a>
           <a href="" class="footerText"><span>about</span></a>
-          <a href="" class="footerText"><span>contact</span></a>
+          <a href="" class="footerText"><span>contact</span></a> -->
+          </div>
         </div>
+        <div class="footerTitle">PORTFOLIO</div>
       </div>
-      <div class="footerTitle">PORTFOLIO</div>
-    </div>
+    </footer>
     <canvas class="experience"></canvas>
     <script type="module" src="./script.js"></script>
   </body>

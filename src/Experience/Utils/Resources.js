@@ -10,7 +10,7 @@ export default class Ressources extends EventEmitter {
 
     this.sources = sources;
     // console.log(this.sources);
-    
+
     this.items = {};
     this.toLoad = this.sources.length;
     this.loaded = 0;
@@ -21,7 +21,19 @@ export default class Ressources extends EventEmitter {
 
   setLoaders() {
     this.loaders = {};
-    this.loaders.gltfLoader = new GLTFLoader();
+    this.loadingManager = new THREE.LoadingManager(
+      // Loaded
+      () => {
+        this.trigger("ready");
+      },
+      // Progress
+      (itemUrl, itemsLoaded, itemsTotal) => {
+        const progressRatio = itemsLoaded / itemsTotal;
+        this.trigger("progress", [progressRatio]);
+      }
+    );
+
+    this.loaders.gltfLoader = new GLTFLoader(this.loadingManager);
     this.loaders.textureLoader = new THREE.TextureLoader();
     this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader();
   }
@@ -52,8 +64,8 @@ export default class Ressources extends EventEmitter {
     this.items[source.name] = file;
     this.loaded++;
 
-    if (this.loaded === this.toLoad) {
-      this.trigger("ready");
-    }
+    // if (this.loaded === this.toLoad) {
+    //   this.trigger("ready");
+    // }
   }
 }

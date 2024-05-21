@@ -8,12 +8,11 @@ import Renderer from "./Renderer";
 import Camera from "./Camera";
 
 export default class Transition {
-  constructor(experience) {
-    this.experience = experience;
-    this.resources = this.experience.resources;
+  constructor(time, sizes, resources) {
+    this.resources = resources;
 
-    this.time = this.experience.time;
-    this.sizes = this.experience.sizes;
+    this.time = time;
+    this.sizes = sizes;
 
     this.canvas = document.querySelector("canvas.preloader");
     this.scene = new THREE.Scene();
@@ -22,7 +21,8 @@ export default class Transition {
     this.renderer.instance.setClearColor(0x2d0037, 0);
 
     this.preloaderEl = document.querySelector("div.preloader");
-    this.preloaderText = this.preloaderEl.querySelector(".preloaderText");
+    this.preloaderBar = this.preloaderEl.querySelector(".preloaderBar");
+
     // Resize event
     this.sizes.on("resize", () => {
       this.resize();
@@ -31,18 +31,28 @@ export default class Transition {
     // Time tick event
     this.time.on("tick", () => {
       this.update();
+      this.overlayMaterial.uniforms.uTime.value = this.time.elapsed;
     });
-
     this.setMesh();
 
-    this.destroy.bind(this);
-
-    this.resources.on("ready", () => {
-      this.animateOut();
+    this.preloaderTimeline = gsap.timeline();
+    // Progress
+    this.resources.on("progress", (progress) => {
+      // Update area
+      gsap.to(this.preloaderBar, {
+        scaleX: progress,
+        duration: 0.5,
+      });
     });
 
-    this.time.on("tick", () => {
-      this.overlayMaterial.uniforms.uTime.value = this.time.elapsed;
+    this.resources.on("ready", () => {
+      gsap.to(this.preloaderBar, {
+        opacity: 0,
+        duration: 0.75,
+        ease: "power1.out",
+      });
+
+      this.animateOut(1.5, 0.5);
     });
   }
 
@@ -100,17 +110,14 @@ export default class Transition {
     });
     this.camera.controls.dispose();
     this.renderer.instance.dispose();
-    // if (this.debug.active) this.debug.ui.destroy();
-    // this.canvas.remove();
   }
 
-  animateOut() {
+  animateOut(duration, delay = 0) {
     return gsap.to(this.overlayMaterial.uniforms.uProgress, {
-      duration: 1,
+      duration: duration,
       value: 1,
-      onUpdate: () => {
-        // console.log(this.overlayMaterial.uniforms.uProgress.value);
-      },
+      delay: delay,
+      ease: "power1.out",
     });
   }
 
@@ -118,9 +125,7 @@ export default class Transition {
     return gsap.to(this.overlayMaterial.uniforms.uProgress, {
       duration: 1,
       value: 0,
-      onUpdate: () => {
-        // console.log(this.overlayMaterial.uniforms.uProgress.value);
-      },
+      ease: "power1.out",
     });
   }
 }

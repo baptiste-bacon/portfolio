@@ -17,13 +17,17 @@
       color: $color-white;
       line-height: 0.8;
       letter-spacing: -0.65rem;
+
+      @media screen and (max-width: 1700px) {
+        font-size: 13vw;
+      }
     }
   }
 
   .about {
     font-variation-settings: "wght" 800;
 
-    padding: 30rem 0;
+    padding: 8rem 0 20rem;
 
     &Subtitle {
       margin-bottom: 10rem;
@@ -39,7 +43,7 @@
   }
 
   .highlight {
-    padding: 30rem 0;
+    padding: 8rem 0 20rem;
 
     &Subtitle {
       margin-bottom: 5.5rem;
@@ -123,6 +127,7 @@
       display: flex;
       justify-content: space-between;
       gap: 3rem;
+      flex-wrap: wrap;
     }
 
     &Card {
@@ -139,10 +144,11 @@
       color: $color-white;
       aspect-ratio: 1/1;
 
-      transition: background-color 0.25s ease-out;
+      transition: background-color 0.1s ease-out, transform 0.25s ease-out;
 
       &:hover {
         background-color: $color-p7;
+        transform: scale(1.05);
       }
 
       &__list {
@@ -161,6 +167,7 @@
 
   .contact {
     margin-bottom: 30rem;
+    padding-top: 8rem;
     color: $color-white;
 
     &Subtitle {

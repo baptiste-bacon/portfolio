@@ -15,6 +15,7 @@ export default class Tentacle {
 
     this.debug = this.experience.debug;
 
+    this.cursor = { x: 0, y: 0 };
     this.initialPosition = { x: 0, y: -22, z: 0 };
     this.initialScale = { x: 1, y: 1, z: 1 };
     this.initialRotation = { x: 0, y: Math.PI / 6, z: 0 };
@@ -31,8 +32,16 @@ export default class Tentacle {
     // Setup
     this.resource = this.resources.items.tentacleModel;
     this.setModel();
+    this.initEvents();
     this.setAnimation();
     this.setAnimationsScript();
+  }
+
+  initEvents() {
+    window.addEventListener("mousemove", (event) => {
+      this.cursor.x = event.clientX / this.sizes.width;
+      this.cursor.y = event.clientY / this.sizes.height;
+    });
   }
 
   setModel() {
@@ -145,6 +154,11 @@ export default class Tentacle {
     if (this.scroll) {
       this.playScrollAnimations();
     }
+
+    const parallaxX = this.cursor.x;
+    // const parallaxY = -this.cursor.y;
+    this.model.position.x += (parallaxX - this.model.position.x) * this.time.delta * 0.005;
+    // this.model.position.y += (parallaxY - this.model.position.y) * 0.1;
   }
 
   setAnimationsScript() {
@@ -155,7 +169,7 @@ export default class Tentacle {
         this.model.rotation.y = -lerp(
           this.initialRotation.y,
           // 360deg
-          (2 * Math.PI + Math.PI),
+          2 * Math.PI + Math.PI,
           this.scroll.scalePercent(0, 100)
         );
       },

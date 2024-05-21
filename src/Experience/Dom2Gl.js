@@ -1,14 +1,8 @@
 import fragment from "../shaders/dom2Gl/fragment.glsl";
 import vertex from "../shaders/dom2Gl/vertex.glsl";
 
-import postvertex from "../shaders/post/vertex.glsl";
-import postfragment from "../shaders/post/fragment.glsl";
-
 import imagesLoaded from "imagesloaded";
 import * as THREE from "three";
-import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
-import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
-import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
 import Sizes from "./Utils/Sizes.js";
 import Time from "./Utils/Time.js";
@@ -20,23 +14,21 @@ import Renderer from "./Renderer.js";
 import Item from "./Item.js";
 
 export default class Dom2Gl {
-  constructor(canvas, lenis) {
+  constructor(canvas, currentDOM, lenis) {
     this.canvas = canvas;
+    this.currentDOM = currentDOM;
     this.lenis = lenis;
 
     this.items = [];
     this.debugObject = {};
     // Colors
     this.debugObject.depthColor = "#E099F1";
-    this.images = document.querySelectorAll("img");
+    this.images = [];
 
     this.debug = new Debug();
     this.sizes = new Sizes();
     this.time = new Time();
     this.scene = new THREE.Scene();
-
-    this.renderer = new Renderer(this);
-    this.renderer.instance.setClearColor(0x000fff, 0);
 
     // Debug
     if (this.debug.active) {
@@ -44,11 +36,71 @@ export default class Dom2Gl {
     }
 
     this.initCamera();
-    this.initEvents();
-    this.composerPass();
+    this.initRenderer();
 
-    /***********************************/
-    /********** Preload stuff **********/
+    this.initEvents();
+  }
+
+  getImages() {
+    // Preload images
+    const preloadImages = new Promise((resolve, reject) => {
+      imagesLoaded(
+        this.currentDOM.querySelectorAll("img"),
+        { background: true },
+        resolve
+      );
+    });
+
+    preloadImages.then((images) => {
+      this.images = images.images;
+    });
+    const preloadEverything = [preloadImages];
+
+    // And then..
+    Promise.all(preloadEverything).then(() => {
+      this.createItems();
+    });
+  }
+
+  createItems() {
+    this.images.forEach((image) => {
+      if (image.img.hasAttribute("data-img")) {
+        image.img.style.opacity = "0";
+
+        const item = new Item(image, this);
+        this.items.push(item);
+
+        if (this.hover) {
+          item.hoverEffect();
+        }
+      }
+    });
+  }
+
+  showItems() {
+    // this.createItems();
+  }
+
+  clearItems() {
+    this.scene.traverse((object) => {
+      if (object.geometry && object.geometry.type === "PlaneGeometry") {
+        // Remove the object from its parent
+        object.parent.remove(object);
+
+        // Dispose of the geometry and material to free up memory
+        console.log(object.material);
+        object.geometry.dispose();
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((material) => material.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      }
+    });
+    console.log(this.items);
+
   }
 
   initCamera() {
@@ -67,6 +119,11 @@ export default class Dom2Gl {
     this.camera.instance.lookAt(0, 0, 0);
 
     this.camera.instance.updateProjectionMatrix();
+  }
+
+  initRenderer() {
+    this.renderer = new Renderer(this);
+    this.renderer.instance.setClearColor(0x000fff, 0);
   }
 
   initEvents() {
@@ -90,7 +147,8 @@ export default class Dom2Gl {
       uniforms: {
         uTime: { type: "f", value: 0 },
         uProgress: { type: "f", value: 0 },
-        uTexture1: { type: "t", value: null },
+        uShift: { type: "f", value: 0 },
+        uTexture: { type: "t", value: null },
         uResolution: { type: "v4", value: new THREE.Vector4() },
         uvRate1: {
           value: new THREE.Vector2(1, 1),
@@ -103,128 +161,100 @@ export default class Dom2Gl {
       },
       // wireframe: true,
       transparent: true,
-      vertexShader: vertex,
-      fragmentShader: fragment,
+      vertexShader: this.vertex,
+      fragmentShader: this.fragment,
     });
+    // if (this.debug.active) {
+    //   this.debugFolder
+    //     .add(this.material.uniforms.uProgress, "value")
+    //     .min(0)
+    //     .max(1)
+    //     .step(1)
+    //     .name("uProgress")
+    //     .onChange((value) => {
+    //       this.items.forEach((item) => {
+    //         item.material.uniforms.uProgress.value = value;
+    //       });
+    //     });
 
-    if (this.debug.active) {
-      this.debugFolder
-        .add(this.material.uniforms.uProgress, "value")
-        .min(0)
-        .max(1)
-        .step(1)
-        .name("uProgress")
-        .onChange((value) => {
-          this.items.forEach((item) => {
-            item.material.uniforms.uProgress.value = value;
-          });
-        });
-
-      this.debugFolder
-        .add(this.material.uniforms.uNoiseAmp, "value")
-        .min(-50)
-        .max(50)
-        .step(0.01)
-        .name("uNoiseAmp")
-        .onChange((value) => {
-          this.items.forEach((item) => {
-            item.material.uniforms.uNoiseAmp.value = value;
-          });
-        });
-      this.debugFolder
-        .add(this.material.uniforms.uNoiseFreq, "value")
-        .min(-50)
-        .max(50)
-        .step(0.01)
-        .name("uNoiseFreq")
-        .onChange((value) => {
-          this.items.forEach((item) => {
-            item.material.uniforms.uNoiseFreq.value = value;
-          });
-        });
-      this.debugFolder
-        .add(this.material.uniforms.uColorOffset, "value")
-        .min(-1)
-        .max(1)
-        .step(0.01)
-        .name("uColorOffset")
-        .onChange((value) => {
-          this.items.forEach((item) => {
-            item.material.uniforms.uColorOffset.value = value;
-          });
-        });
-      this.debugFolder
-        .add(this.material.uniforms.uColorMultiplier, "value")
-        .min(-50)
-        .max(50)
-        .step(0.01)
-        .name("uColorMultiplier")
-        .onChange((value) => {
-          this.items.forEach((item) => {
-            item.material.uniforms.uColorMultiplier.value = value;
-          });
-        });
-    }
+    //   this.debugFolder
+    //     .add(this.material.uniforms.uNoiseAmp, "value")
+    //     .min(-50)
+    //     .max(50)
+    //     .step(0.01)
+    //     .name("uNoiseAmp")
+    //     .onChange((value) => {
+    //       this.items.forEach((item) => {
+    //         item.material.uniforms.uNoiseAmp.value = value;
+    //       });
+    //     });
+    //   this.debugFolder
+    //     .add(this.material.uniforms.uNoiseFreq, "value")
+    //     .min(-50)
+    //     .max(50)
+    //     .step(0.01)
+    //     .name("uNoiseFreq")
+    //     .onChange((value) => {
+    //       this.items.forEach((item) => {
+    //         item.material.uniforms.uNoiseFreq.value = value;
+    //       });
+    //     });
+    //   this.debugFolder
+    //     .add(this.material.uniforms.uColorOffset, "value")
+    //     .min(-1)
+    //     .max(1)
+    //     .step(0.01)
+    //     .name("uColorOffset")
+    //     .onChange((value) => {
+    //       this.items.forEach((item) => {
+    //         item.material.uniforms.uColorOffset.value = value;
+    //       });
+    //     });
+    //   this.debugFolder
+    //     .add(this.material.uniforms.uColorMultiplier, "value")
+    //     .min(-50)
+    //     .max(50)
+    //     .step(0.01)
+    //     .name("uColorMultiplier")
+    //     .onChange((value) => {
+    //       this.items.forEach((item) => {
+    //         item.material.uniforms.uColorMultiplier.value = value;
+    //       });
+    //     });
+    // }
   }
 
-  composerPass() {
-    this.composer = new EffectComposer(this.renderer.instance);
-    this.renderPass = new RenderPass(this.scene, this.camera.instance);
-    this.composer.addPass(this.renderPass);
+  // composerPass(vertexShader, fragmentShader) {
+  //   this.composer = new EffectComposer(this.renderer.instance);
+  //   this.renderPass = new RenderPass(this.scene, this.camera.instance);
+  //   this.composer.addPass(this.renderPass);
 
-    //custom shader pass
-    let myEffect = {
-      uniforms: {
-        uTime: { value: 0 },
-        tDiffuse: { value: null },
-        uResolution: {
-          value: new THREE.Vector2(1, window.innerHeight / window.innerWidth),
-        },
-        // Change uType value to change current effect
-        uType: { value: 0 },
-      },
-      vertexShader: postvertex,
-      fragmentShader: postfragment,
-    };
+  //   //custom shader pass
+  //   let myEffect = {
+  //     uniforms: {
+  //       uTexture: { value: null },
+  //       hasTexture: { value: 0 },
+  //       uScale: { value: 0 },
+  //       uShift: { value: 0 },
+  //       uOpacity: { value: 1 },
+  //       uColor: { value: new THREE.Uniform(new THREE.Color("#2D0037")) },
+  //     },
+  //     vertexShader: vertexShader,
+  //     fragmentShader: fragmentShader,
+  //   };
 
-    this.customPass = new ShaderPass(myEffect);
-    this.customPass.renderToScreen = true;
-    this.composer.addPass(this.customPass);
-  }
-
-  createItems() {
-    this.images.forEach((image) => {
-      if (image.img.hasAttribute("data-img")) {
-        image.img.style.opacity = "0";
-
-        this.items.push(new Item(image, this));
-      }
-    });
-  }
-
-  getImages(dom) {
-    // Preload images
-    const preloadImages = new Promise((resolve, reject) => {
-      imagesLoaded(dom.querySelectorAll("img"), { background: true }, resolve);
-    });
-
-    preloadImages.then((images) => {
-      this.images = images.images;
-    });
-    const preloadEverything = [preloadImages];
-
-    // And then..
-    Promise.all(preloadEverything).then(() => {
-      this.createItems();
-    });
-  }
+  //   this.customPass = new ShaderPass(myEffect);
+  //   this.customPass.renderToScreen = true;
+  //   this.composer.addPass(this.customPass);
+  // }
 
   resize() {
-    this.customPass.uniforms.uResolution.value.y =
+    this.material.uniforms.uResolution.value.y =
       this.sizes.height / this.sizes.width;
 
     this.items.forEach((item) => {
       item.resize();
+      item.update()
     });
 
     this.camera.resize();
@@ -240,18 +270,18 @@ export default class Dom2Gl {
       }
     });
 
-    this.customPass.uniforms.uTime.value = this.time.elapsed;
     this.targetSpeed *= 0.999;
 
     if (this.composer) {
+      // this.customPass.uniforms.uTime.value = this.time.elapsed;
       this.composer.render();
+    } else {
+      this.renderer.update();
     }
 
     this.items.forEach((item) => {
       item.update();
     });
-
-    // this.renderer.update();
   }
 
   destroy() {

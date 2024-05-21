@@ -2,7 +2,6 @@ varying vec2 vUv;
 varying float vElevation;
 
 uniform float uTime;
-uniform vec4 uResolution;
 uniform float uNoiseFreq;
 uniform float uNoiseAmp;
 

@@ -13,8 +13,8 @@ import Renderer from "./Renderer.js";
 import World from "./World/World.js";
 
 export default class Experience {
-  constructor(canvas) {
-    window.experience = this;
+  constructor(canvas, resources) {
+    // window.experience = this;
 
     this.canvas = canvas;
 
@@ -25,7 +25,7 @@ export default class Experience {
     this.scroll = new Scroll();
 
     this.scene = new THREE.Scene();
-    this.resources = new Resources(sources);
+    this.resources = resources;
 
     this.camera = new Camera(this);
     this.camera.instance.position.set(6, 4, 8);
@@ -34,7 +34,8 @@ export default class Experience {
     this.renderer.instance.setClearColor(0x2d0037, 1);
     this.world = new World(this);
 
-    this.paused = false;
+    this.paused = true;
+    this.canvas.classList.add("-hidden");
 
     this.initEvents();
   }
@@ -64,12 +65,12 @@ export default class Experience {
 
   pause() {
     this.paused = true;
-    this.canvas.classList.add('-hidden')
+    this.canvas.classList.add("-hidden");
   }
-  
-  play(){
+
+  play() {
     this.paused = false;
-    this.canvas.classList.remove('-hidden')
+    this.canvas.classList.remove("-hidden");
   }
 
   destroy() {

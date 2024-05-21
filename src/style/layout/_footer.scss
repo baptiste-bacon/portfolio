@@ -1,13 +1,17 @@
 .footer {
-  padding: 6.4rem;
-  background: $color-p8;
-  border-radius: 3.5rem;
-  margin: 0 auto 6rem;
+  padding: 0 10rem;
 
-  max-width: 144rem;
+  &Wrapper {
+    padding: 6.4rem;
+    background: $color-p8;
+    border-radius: 3.5rem;
+    margin: 0 auto 6rem;
 
-  font-family: "Bricolage Grotesque", Arial;
-  color: $color-white;
+    max-width: 144rem;
+
+    font-family: "Bricolage Grotesque", Arial;
+    color: $color-white;
+  }
 
   &Header {
     display: flex;
@@ -21,18 +25,14 @@
   }
 
   &Title {
-    font-size: 5vw;
+    font-size: 30rem;
     letter-spacing: -0.5rem;
     font-variation-settings: "wght" 800;
 
     pointer-events: none;
 
-    @media screen and (max-width: 600px) {
-        font-size: 12rem;
-    }
-
-    @media screen and (min-width: 1440px) {
-      font-size: 32rem;
+    @media screen and (max-width: 1800px) {
+      font-size: 16.5vw;
     }
   }
 

@@ -11,6 +11,7 @@ export default class Renderer {
     this.camera = this.experience.camera;
 
     this.setInstance();
+
   }
 
   setInstance() {
@@ -18,22 +19,21 @@ export default class Renderer {
       canvas: this.canvas,
       antialias: true,
     });
+
     this.instance.toneMapping = THREE.CineonToneMapping;
     this.instance.toneMappingExposure = 1.75;
     // this.instance.shadowMap.enabled = true;
     this.instance.shadowMap.type = THREE.PCFSoftShadowMap;
     this.instance.setSize(this.sizes.width, this.sizes.height);
-    this.instance.setPixelRatio(this.sizes.pixelRatio)
+    this.instance.setPixelRatio(this.sizes.pixelRatio);
   }
 
-  resize()
-  {
-      this.instance.setSize(this.sizes.width, this.sizes.height)
-      this.instance.setPixelRatio(this.sizes.pixelRatio)
+  resize() {
+    this.instance.setSize(this.sizes.width, this.sizes.height);
+    this.instance.setPixelRatio(this.sizes.pixelRatio);
   }
 
-  update()
-  {
-      this.instance.render(this.scene, this.camera.instance)
+  update() {
+    this.instance.render(this.scene, this.camera.instance);
   }
 }

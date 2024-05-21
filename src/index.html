@@ -5,26 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PORTFOLIO 2024</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body data-barba="wrapper">
     <canvas class="preloader"></canvas>
     <div class="preloader">
-      <p class="preloaderText">scroll</p>
+      <div class="preloaderBar"></div>
     </div>
-    <header class="header">
-      <div class="headerLogo"></div>
-      <ul class="headerLinks">
-        <li class="headerItem">projects</li>
-        <li class="headerItem">about</li>
-        <li class="headerItem">contact</li>
+    <nav class="nav">
+      <div class="navLogo">
+        <a href="./index.html">home</a>
+      </div>
+      <ul class="navLinks">
+        <li class="navItem"><a href="#about">about</a></li>
+        <li class="navItem"><a href="#projects">projects</a></li>
+        <li class="navItem"><a href="#contact">contact</a></li>
       </ul>
-    </header>
+    </nav>
     <canvas class="dom2Gl"></canvas>
     <main class="home" data-barba="container" data-barba-namespace="home">
       <div class="wrapper">
@@ -36,7 +32,7 @@
             <span>DEV PORTFOLIO</span>
           </h1>
         </div>
-        <div class="about">
+        <div id="about" class="about">
           <p class="aboutSubtitle subtitle">
             <span>about</span>
             <svg
@@ -52,10 +48,10 @@
           </p>
           <p class="aboutText">
             Hey there. I'm Baptiste, I'm a front-end developer and I'm currently
-            looking for a permanent job.
+            looking for a permanent job in Lyon.
           </p>
         </div>
-        <div class="highlight">
+        <div id="projects" class="highlight">
           <p class="highlightSubtitle subtitle">
             <span>selected projects</span>
             <svg
@@ -164,9 +160,6 @@
                   <span>Webpack</span>
                 </li>
                 <li class="skillsCard__item">
-                  <span>Gulp</span>
-                </li>
-                <li class="skillsCard__item">
                   <span>Vite</span>
                 </li>
                 <li class="skillsCard__item">
@@ -194,7 +187,7 @@
             </div>
           </div>
         </div>
-        <div class="contact">
+        <div id="contact" class="contact">
           <p class="contactSubtitle subtitle">
             <span>get in touch</span>
             <svg
@@ -210,26 +203,34 @@
           </p>
 
           <div class="contactInner">
-            <h4 class="contactEmail">mbaconbaptiste@gmail.com</h4>
+            <h4 class="contactEmail">
+              <a href="mailto:mbaconbaptiste@gmail.com"
+                >mbaconbaptiste@gmail.com</a
+              >
+            </h4>
 
             <div class="contactInner__info">
-              <p class="contactPhone">(+33) 7 82 81 05 58</p>
+              <p class="contactPhone">
+                <a href="tel:+33782810558">(+33) 7 82 81 05 58</a>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </main>
-    <div class="footer">
-      <div class="footerHeader">
-        <p class="footerText">All Rights Reserved ©2024</p>
-        <div class="footerInner">
-          <a href="" class="footerText"><span>cv</span></a>
+    <footer class="footer">
+      <div class="footerWrapper">
+        <div class="footerHeader">
+          <p class="footerText">All Rights Reserved ©2024</p>
+          <div class="footerInner">
+            <!-- <a href="" class="footerText"><span>cv</span></a>
           <a href="" class="footerText"><span>about</span></a>
-          <a href="" class="footerText"><span>contact</span></a>
+          <a href="" class="footerText"><span>contact</span></a> -->
+          </div>
         </div>
+        <div class="footerTitle">PORTFOLIO</div>
       </div>
-      <div class="footerTitle">PORTFOLIO</div>
-    </div>
+    </footer>
     <canvas class="experience"></canvas>
 
     <script type="module" src="./script.js"></script>

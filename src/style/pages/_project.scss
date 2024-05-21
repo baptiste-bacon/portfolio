@@ -1,12 +1,13 @@
 .project {
   width: 100%;
   padding-top: 20rem;
+  margin-bottom: 30rem;
   background: $color-p1;
 
   font-family: "Bricolage Grotesque", Arial;
 
   .hero {
-    margin-bottom: 8rem;
+    margin-bottom: 12rem;
 
     &Title {
       font-size: 20rem;
@@ -20,9 +21,9 @@
 
     &Figure {
       width: 100%;
-      height: 70rem;
+      aspect-ratio: 16 / 9;
       margin-top: -6rem;
-      margin-bottom: 10rem;
+      margin-bottom: 16rem;
     }
   }
 
@@ -71,11 +72,11 @@
   .container {
     display: flex;
     flex-direction: column;
-    gap: 24rem;
+    gap: 30rem;
 
     &Figure {
       width: 100%;
-      height: 70rem;
+      aspect-ratio: 16 / 9;
     }
   }
 }

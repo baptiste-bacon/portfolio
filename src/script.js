@@ -2,35 +2,60 @@ import "./index.scss";
 import barba from "@barba/core";
 import Lenis from "lenis";
 
+import sources from "./Experience/sources.js";
+import Resources from "./Experience/Utils/Resources.js";
+
 import Transition from "./Experience/Transition.js";
-import Dom2Gl from "./Experience/Dom2Gl.js";
 import Experience from "./Experience/Experience";
 import Time from "./Experience/Utils/Time.js";
 
-barba.hooks.beforeEnter("home", (data) => {
-  // Add your beforeEnter logic here
-});
+import ProjectDistortion from "./Experience/ProjectDistortion.js";
+import ProjectNoise from "./Experience/ProjectNoise.js";
+import Sizes from "./Experience/Utils/Sizes.js";
 
 class App {
   constructor() {
     this.time = new Time();
+    this.sizes = new Sizes();
+
+    this.initBarba();
+    this.initLenis();
+    this.initApp();
 
     this.time.on("tick", () => {
       this.update();
     });
-    this.initBarba();
-
-    this.initLenis();
-    this.initApp();
   }
 
   initApp() {
+    this.nav = document.querySelector("nav.nav");
+    this.resources = new Resources(sources);
+
     this.experienceCanvas = document.querySelector("canvas.experience");
     this.dom2GlCanvas = document.querySelector("canvas.dom2Gl");
 
-    this.experience = new Experience(this.experienceCanvas);
-    this.transition = new Transition(this.experience);
-    this.dom2Gl = new Dom2Gl(this.dom2GlCanvas, this.lenis);
+    this.initHome();
+    this.transition = new Transition(this.time, this.sizes, this.resources);
+  }
+
+  initHome() {
+    this.experience = new Experience(this.experienceCanvas, this.resources);
+  }
+
+  initProjectNoise(currentDOM) {
+    this.projectNoise = new ProjectNoise(
+      this.dom2GlCanvas,
+      currentDOM,
+      this.lenis
+    );
+  }
+
+  initProjectDistortion(currentDOM) {
+    this.projectDistortion = new ProjectDistortion(
+      this.dom2GlCanvas,
+      currentDOM,
+      this.lenis
+    );
   }
 
   initLenis() {
@@ -39,6 +64,23 @@ class App {
     this.lenis.on("scroll", (e) => {
       // this.dom2Gl.scroll(e);
     });
+
+    // fix for id links
+    document.querySelectorAll('a[href^="#"]').forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = el.getAttribute("href")?.slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+    });
+  }
+
+  toggleNav(state) {
+    this.nav.classList[state ? "remove" : "add"]("-hidden");
   }
 
   initBarba() {
@@ -53,48 +95,38 @@ class App {
             });
           },
           enter() {
-            that.transition.animateOut();
+            that.transition.animateOut(1.25);
           },
         },
       ],
       views: [
         {
           namespace: "home",
-          beforeEnter() {
-            // Add your beforeEnter logic for the homepage namespace
-
-          },
           afterEnter(data) {
             // Add your afterEnter logic for the homepage namespace
-              that.experience.play();
-              console.log(data.next);
-              that.dom2Gl.getImages(data.next.container);
-              that.dom2Gl.addObjects()
-          },
-          beforeLeave() {
-            // Add your beforeLeave logic for the homepage namespace
+            that.lenis.scrollTo(0, { immediate: true });
+            that.toggleNav(true);
+            that.experience.play();
+            that.initProjectNoise(data.next.container);
           },
           afterLeave() {
             // Add your afterLeave logic for the homepage namespace
+            that.experience.pause();
+            that.projectNoise.destroy();
           },
         },
         {
           namespace: "project",
-          beforeEnter() {
-            // Add your beforeEnter logic for the projectpage namespace
-          },
           afterEnter(data) {
             // Add your afterEnter logic for the projectpage namespace
-            that.experience.pause();
-            // WIP
-            // that.dom2Gl.getImages(data.next.container);
-            // that.dom2Gl.addObjects()
-          },
-          beforeLeave() {
-            // Add your beforeLeave logic for the projectpage namespace
+            that.lenis.scrollTo(0, { immediate: true });
+            that.toggleNav(false);
+            that.initProjectDistortion(data.next.container);
+            // that.projectDistortion.addObjects
           },
           afterLeave() {
             // Add your afterLeave logic for the projectpage namespace
+            that.projectDistortion.destroy();
           },
         },
       ],
