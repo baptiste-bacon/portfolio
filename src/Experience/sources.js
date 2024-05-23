@@ -22,11 +22,6 @@ export default [
     path: "assets/textures/dirt/normal.jpg",
   },
   {
-    name: "foxModel",
-    type: "gltfModel",
-    path: "assets/models/Fox/glTF/Fox.gltf",
-  },
-  {
     name: "tentacleModel",
     type: "gltfModel",
     path: "assets/models/Tentacle/glTF/Tentacle.gltf",

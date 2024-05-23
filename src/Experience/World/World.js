@@ -1,8 +1,6 @@
 import * as THREE from "three";
 
 import Environment from "./Environment";
-import Floor from "./Floor.js";
-import Fox from "./Fox.js";
 import Tentacle from "./Tentacle.js";
 
 export default class World {
