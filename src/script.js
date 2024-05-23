@@ -1,4 +1,5 @@
 import "./index.scss";
+
 import barba from "@barba/core";
 import Lenis from "lenis";
 

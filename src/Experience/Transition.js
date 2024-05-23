@@ -39,18 +39,18 @@ export default class Transition {
     // Progress
     this.resources.on("progress", (progress) => {
       // Update area
-      gsap.to(this.preloaderBar, {
-        scaleX: progress,
-        duration: 0.5,
-      });
+      // gsap.to(this.preloaderBar, {
+      //   scaleX: progress,
+      //   duration: 0.5,
+      // });
     });
 
     this.resources.on("ready", () => {
-      gsap.to(this.preloaderBar, {
-        opacity: 0,
-        duration: 0.75,
-        ease: "power1.out",
-      });
+      // gsap.to(this.preloaderBar, {
+      //   opacity: 0,
+      //   duration: 0.75,
+      //   ease: "power1.out",
+      // });
 
       this.animateOut(1.5, 0.5);
     });

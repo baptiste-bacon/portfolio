@@ -1,3 +1,5 @@
+import { resolve } from 'path'
+
 import glsl from "vite-plugin-glsl";
 import sassGlobImports from "vite-plugin-sass-glob-import";
 
@@ -12,7 +14,13 @@ export default {
   build: {
     outDir: "../dist", // Output in the dist/ folder
     emptyOutDir: true, // Empty the folder first
-    sourcemap: true, // Add sourcemap
+    // sourcemap: true, // Add sourcemap
+    rollupOptions: {
+      input: {
+        main : resolve(__dirname, 'src/index.html'),
+        project : resolve(__dirname, 'src/project.html'),
+      },
+    }
   },
   plugins: [glsl(), sassGlobImports()],
 };

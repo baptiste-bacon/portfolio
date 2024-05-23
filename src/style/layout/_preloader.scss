@@ -10,17 +10,14 @@
   pointer-events: none;
   // background-color: $color-p1;
 
-  &Bar {
+  &Logo {
+    display: none;
     position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    margin: auto;
+    // top: 50%;
+    top: 4.6rem;
+    left: 50%;
+    width: 10rem;
 
-    height: 0.2rem;
-    width: 100%;
-    background: $color-white;
-
-    transform: scaleX(0);
+    transform: translate(-50%, -50%);
   }
 }
