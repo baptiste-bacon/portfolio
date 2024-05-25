@@ -17,12 +17,12 @@ export default {
     sourcemap: true, // Add sourcemap
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "/src/index.html"),
-        lipton: resolve(__dirname, "/src/lipton.html"),
-        aeko: resolve(__dirname, "/src/aeko.html"),
-        plantgrape: resolve(__dirname, "/src/plantgrape.html"),
-        mfk: resolve(__dirname, "/src/mfk.html"),
-        farret: resolve(__dirname, "/src/farret.html"),
+        main: resolve(__dirname, "src/index.html"),
+        lipton: resolve(__dirname, "src/lipton.html"),
+        aeko: resolve(__dirname, "src/aeko.html"),
+        plantgrape: resolve(__dirname, "src/plantgrape.html"),
+        mfk: resolve(__dirname, "src/mfk.html"),
+        farret: resolve(__dirname, "src/farret.html"),
       },
     },
   },
