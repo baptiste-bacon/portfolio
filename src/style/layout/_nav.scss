@@ -1,38 +1,99 @@
 .nav {
+  position: relative;
   z-index: 99;
-  position: fixed;
-  left: 50%;
-  width: 100%;
-  padding-top: 4rem;
-  margin: auto;
-
+  // width: 100%;
   max-width: 144rem;
 
   font-family: "Bricolage Grotesque", Arial;
   font-size: 2.4rem;
   color: $color-white;
 
-  display: flex;
-  justify-content: space-between;
-
-  transform: translateX(-50%);
-
   &.-hidden {
-    .navLinks {
+    .navList {
       display: none;
     }
   }
 
-  &Logo {
-    width: 4.5rem;
-    height: 2.5rem;
+  &Inner {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0;
+    padding: 4rem 10rem 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    box-sizing: border-box;
   }
 
-  &Links {
+  &Logo {
+    // opacity: 0;
+    width: 4.5rem;
+    height: 2.5rem;
+
+    svg {
+      overflow: visible;
+    }
+
+    .logoEyebrow-l {
+        transform-origin: 50% 50%;
+        transition: transform 0.25s 0.05s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    }
+    .logoEyebrow-r {
+        transform-origin: 50% 50%;
+        transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    }
+    .logoEye-l {
+        transform-origin: 50% 50%;
+        transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    }
+    .logoEye-r {
+        transform-origin: 50% 50%;
+        transition: transform 0.05s 0.15s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+    }
+
+    &:hover {
+      .logoEyebrow-l {
+        transform: translateY(-2rem) rotate(-6deg) scale(1.05);
+      }
+      .logoEyebrow-r {
+        transform: translateY(-2rem) rotate(6deg) scale(1.1);
+      }
+      .logoEye-l {
+        transform: scale(1.05);
+      }
+      .logoEye-r {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &List {
     display: flex;
     gap: 6.4rem;
   }
 
   &Item {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 150%;
+      height: 150%;
+      border-radius: 0.5rem;
+
+      transform: translate(-50%,-50%);
+      z-index: -1;
+
+      transition: background 0.25s ;
+    }
+
+    &:hover::after {
+      background: $color-p4;
+    }
   }
 }

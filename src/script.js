@@ -13,6 +13,7 @@ import Time from "./Experience/Utils/Time.js";
 import ProjectDistortion from "./Experience/ProjectDistortion.js";
 import ProjectNoise from "./Experience/ProjectNoise.js";
 import Sizes from "./Experience/Utils/Sizes.js";
+import Nav from "./App/Nav.js";
 
 class App {
   constructor() {
@@ -29,7 +30,8 @@ class App {
   }
 
   initApp() {
-    this.nav = document.querySelector("nav.nav");
+    this.nav = new Nav()
+    this.navEl = document.querySelector("nav.nav");
     this.resources = new Resources(sources);
 
     this.experienceCanvas = document.querySelector("canvas.experience");
@@ -81,7 +83,7 @@ class App {
   }
 
   toggleNav(state) {
-    this.nav.classList[state ? "remove" : "add"]("-hidden");
+    this.navEl.classList[state ? "remove" : "add"]("-hidden");
   }
 
   initBarba() {

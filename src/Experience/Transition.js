@@ -21,7 +21,7 @@ export default class Transition {
     this.renderer.instance.setClearColor(0x2d0037, 0);
 
     this.preloaderEl = document.querySelector("div.preloader");
-    this.preloaderBar = this.preloaderEl.querySelector(".preloaderBar");
+    this.preloaderLogo = this.preloaderEl.querySelector(".preloaderLogo");
 
     // Resize event
     this.sizes.on("resize", () => {
@@ -38,21 +38,32 @@ export default class Transition {
     this.preloaderTimeline = gsap.timeline();
     // Progress
     this.resources.on("progress", (progress) => {
-      // Update area
-      // gsap.to(this.preloaderBar, {
-      //   scaleX: progress,
-      //   duration: 0.5,
-      // });
+      gsap.to(".clipRect", {
+        attr: {
+          y: `${progress / 100}%`,
+        },
+        ease: "power1.out",
+        duration: 1,
+      });
     });
 
     this.resources.on("ready", () => {
-      // gsap.to(this.preloaderBar, {
-      //   opacity: 0,
-      //   duration: 0.75,
-      //   ease: "power1.out",
-      // });
-
-      this.animateOut(1.5, 0.5);
+      gsap.to(this.preloaderLogo, {
+        top: "4rem",
+        left: "10rem",
+        width: "4.5rem",
+        transform: "translate(0,0)",
+        ease: "power2.out",
+        duration: 1,
+        delay: 0.75,
+        onComplete: () => {
+          this.animateOut(2, 0);
+          gsap.to(this.preloaderLogo, {
+            autoAlpha: 0,
+            delay: 2,
+          });
+        },
+      });
     });
   }
 

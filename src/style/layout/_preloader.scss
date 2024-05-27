@@ -8,13 +8,12 @@
   height: 100%;
 
   pointer-events: none;
-  // background-color: $color-p1;
 
   &Logo {
-    display: none;
+    // display: none;
     position: absolute;
     // top: 50%;
-    top: 4.6rem;
+    top: 50%;
     left: 50%;
     width: 10rem;
 
