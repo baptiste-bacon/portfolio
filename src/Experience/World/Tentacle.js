@@ -59,7 +59,7 @@ export default class Tentacle {
 
     const materialParameters = {};
     materialParameters.color = "#2D0037";
-    materialParameters.shadowColor = "#8e19b8";
+    materialParameters.shadowColor = "#6F008A";
     materialParameters.lightColor = "#E099F1";
 
     this.material = new THREE.ShaderMaterial({

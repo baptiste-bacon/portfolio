@@ -60,7 +60,8 @@ export default class Transition {
           this.animateOut(2, 0);
           gsap.to(this.preloaderLogo, {
             autoAlpha: 0,
-            delay: 2,
+            duration: 0,
+            delay: 1.75,
           });
         },
       });
