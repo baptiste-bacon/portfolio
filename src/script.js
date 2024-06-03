@@ -30,7 +30,7 @@ class App {
   }
 
   initApp() {
-    this.nav = new Nav()
+    this.nav = new Nav();
     this.navEl = document.querySelector("nav.nav");
     this.resources = new Resources(sources);
 
@@ -126,6 +126,15 @@ class App {
             that.toggleNav(false);
             that.initProjectDistortion(data.next.container);
             // that.projectDistortion.addObjects
+
+            // Trigger videos autoplay
+            let vids = document.querySelectorAll("video");
+            vids.forEach((vid) => {
+              let playPromise = vid.play();
+              if (playPromise !== undefined) {
+                playPromise.then((_) => {}).catch((error) => {});
+              }
+            });
           },
           afterLeave() {
             // Add your afterLeave logic for the projectpage namespace
