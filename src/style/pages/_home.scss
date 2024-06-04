@@ -13,13 +13,13 @@
     }
 
     &Title {
-      font-size: 22rem;
+      font-size: 20rem;
       color: $color-white;
       line-height: 0.8;
       letter-spacing: -0.65rem;
 
-      @media screen and (max-width: 1700px) {
-        font-size: 13vw;
+      @media (max-width: 576px) {
+        font-size: 20rem;
       }
     }
   }
@@ -54,7 +54,7 @@
     }
 
     &Item {
-      display: inline-block;
+      display: block;
 
       &__title {
         display: inline-block;
@@ -66,6 +66,11 @@
         letter-spacing: -0.2rem;
         line-height: 18rem;
         color: $color-p8;
+
+        @media (max-width: 1460px) {
+          font-size: 14rem;
+          line-height: 14rem;
+        }
 
         span {
           cursor: pointer;
@@ -87,15 +92,16 @@
 
       &__figure {
         display: inline-block;
-        width: 22.7rem;
-        height: 12.6rem;
+        // width: auto;
+        height: 12.4rem;
 
-        pointer-events: none;
-
-        // visibility: hidden;
-        // opacity: 0;
+        aspect-ratio: 16/9;
 
         transition: opacity 0.5s ease-out;
+
+        @media (max-width: 1460px) {
+          height: 9rem;
+        }
       }
 
       &:nth-child(1) {

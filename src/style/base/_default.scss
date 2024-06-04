@@ -1,7 +1,10 @@
 html {
   // 1rem = 10px
   font-size: 62.5%;
-  // background: $color-p1;
+  
+  @media (max-width: 576px) {
+    font-size: 20%;
+  }
 }
 
 html.lenis, html.lenis body {
@@ -33,11 +36,8 @@ body{
   padding: 0 10rem;
   margin: auto;
 
-  // opacity: 0;
-
-  &.loaded {
-    // opacity: 1;
-    // transition: opacity 0.5s ease-out 0.5s;
+  @media (max-width: 576px) {
+    // padding: 0 1rem;
   }
 }
 
