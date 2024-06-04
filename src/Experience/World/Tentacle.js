@@ -191,7 +191,7 @@ export default class Tentacle {
     this.animationScripts.forEach((a) => {
       if (
         this.scroll.scrollPercent >= a.start &&
-        this.scroll.scrollPercent < a.end
+        this.scroll.scrollPercent <= a.end
       ) {
         a.func();
       }
