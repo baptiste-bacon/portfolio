@@ -4,7 +4,7 @@
   .hero {
     font-variation-settings: "wght" 800;
 
-    padding: 30rem 0;
+    padding: 20rem 0;
 
     &Subtitle {
       font-size: 5.4rem;
@@ -13,7 +13,7 @@
     }
 
     &Title {
-      font-size: 20rem;
+      font-size: 24rem;
       color: $color-white;
       line-height: 0.8;
       letter-spacing: -0.65rem;
@@ -106,18 +106,34 @@
 
       &:nth-child(1) {
         transform: translateX(-8rem);
+
+        @media (max-width: 576px) {
+          transform: translateX(-4rem);
+        }
       }
       &:nth-child(2) {
         transform: translateX(-16rem);
+        @media (max-width: 576px) {
+          transform: translateX(-6rem);
+        }
       }
       &:nth-child(3) {
         transform: translateX(-8rem);
+        @media (max-width: 576px) {
+          transform: translateX(0);
+        }
       }
       &:nth-child(4) {
         // transform: translateX(-10rem);
+        @media (max-width: 576px) {
+          transform: translateX(8rem);
+        }
       }
       &:nth-child(5) {
         transform: translateX(8rem);
+        @media (max-width: 576px) {
+          transform: translateX(12rem);
+        }
       }
     }
   }
@@ -152,6 +168,10 @@
 
       transition: background-color 0.1s ease-out, transform 0.25s ease-out;
 
+      @media (max-width: 576px) {
+        flex: 1 1 40%;
+      }
+
       &:hover {
         background-color: $color-p7;
         transform: scale(1.025);
@@ -162,11 +182,19 @@
 
       &__item {
         font-size: 2.4rem;
+
+        @media (max-width: 576px) {
+          font-size: 4.4rem;
+        }
       }
 
       &__title {
         font-size: 3.2rem;
         font-variation-settings: "wght" 700;
+
+        @media (max-width: 576px) {
+          font-size: 5.2rem;
+        }
       }
     }
   }
@@ -189,6 +217,10 @@
       font-size: 9.6rem;
       font-variation-settings: "wght" 700;
       color: $color-p7;
+
+      @media (max-width: 576px) {
+        font-size: 7.2rem;
+      }
     }
 
     &Phone {

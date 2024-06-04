@@ -34,6 +34,10 @@
     @media (max-width: 1700px) {
       font-size: 16vw;
     }
+
+    @media (max-width: 576px){
+      // font-size: 16vw;
+    }
   }
 
   &Text {

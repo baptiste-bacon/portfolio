@@ -4,6 +4,11 @@
   font-size: 3.2rem;
 
   color: $color-white;
+
+  @media (max-width: 576px){
+  font-size: 5.2rem;
+
+  }
   
   span{
     margin-right: 1rem;
