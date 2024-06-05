@@ -28,7 +28,9 @@
   }
 
   &Logo {
-    // opacity: 0;
+    opacity: 0;
+    visibility: hidden;
+    
     width: 4.5rem;
     height: 2.5rem;
 

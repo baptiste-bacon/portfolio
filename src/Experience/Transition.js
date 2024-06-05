@@ -23,6 +23,8 @@ export default class Transition {
     this.preloaderEl = document.querySelector("div.preloader");
     this.preloaderLogo = this.preloaderEl.querySelector(".preloaderLogo");
 
+    this.navLogo = document.querySelector('.navLogo')
+
     // Resize event
     this.sizes.on("resize", () => {
       this.resize();
@@ -62,6 +64,12 @@ export default class Transition {
             autoAlpha: 0,
             duration: 0,
             delay: 1.75,
+          });
+
+          gsap.to(this.navLogo, {
+            autoAlpha: 1,
+            duration: 0,
+            delay: 1.7,
           });
         },
       });

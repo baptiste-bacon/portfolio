@@ -151,14 +151,14 @@ export default class Tentacle {
   setAnimation() {}
 
   update() {
-    if (this.scroll) {
-      this.playScrollAnimations();
-    }
-
     const parallaxX = this.cursor.x;
     const parallaxY = -this.cursor.y;
     this.model.position.x += (parallaxX - this.model.position.x) * this.time.delta * 0.0025;
     this.model.position.y += (parallaxY + this.model.position.y) *  0.05;
+    
+    if (this.scroll) {
+      this.playScrollAnimations();
+    }
   }
 
   setAnimationsScript() {
