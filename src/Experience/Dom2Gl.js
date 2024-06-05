@@ -66,6 +66,7 @@ export default class Dom2Gl {
     this.images.forEach((image) => {
       if (image.img.hasAttribute("data-img")) {
         image.img.style.opacity = "0";
+        image.img.style.visibility = "hidden";
 
         const item = new Item(image, this);
         this.items.push(item);
@@ -99,8 +100,6 @@ export default class Dom2Gl {
         }
       }
     });
-    console.log(this.items);
-
   }
 
   initCamera() {
@@ -164,64 +163,6 @@ export default class Dom2Gl {
       vertexShader: this.vertex,
       fragmentShader: this.fragment,
     });
-    // if (this.debug.active) {
-    //   this.debugFolder
-    //     .add(this.material.uniforms.uProgress, "value")
-    //     .min(0)
-    //     .max(1)
-    //     .step(1)
-    //     .name("uProgress")
-    //     .onChange((value) => {
-    //       this.items.forEach((item) => {
-    //         item.material.uniforms.uProgress.value = value;
-    //       });
-    //     });
-
-    //   this.debugFolder
-    //     .add(this.material.uniforms.uNoiseAmp, "value")
-    //     .min(-50)
-    //     .max(50)
-    //     .step(0.01)
-    //     .name("uNoiseAmp")
-    //     .onChange((value) => {
-    //       this.items.forEach((item) => {
-    //         item.material.uniforms.uNoiseAmp.value = value;
-    //       });
-    //     });
-    //   this.debugFolder
-    //     .add(this.material.uniforms.uNoiseFreq, "value")
-    //     .min(-50)
-    //     .max(50)
-    //     .step(0.01)
-    //     .name("uNoiseFreq")
-    //     .onChange((value) => {
-    //       this.items.forEach((item) => {
-    //         item.material.uniforms.uNoiseFreq.value = value;
-    //       });
-    //     });
-    //   this.debugFolder
-    //     .add(this.material.uniforms.uColorOffset, "value")
-    //     .min(-1)
-    //     .max(1)
-    //     .step(0.01)
-    //     .name("uColorOffset")
-    //     .onChange((value) => {
-    //       this.items.forEach((item) => {
-    //         item.material.uniforms.uColorOffset.value = value;
-    //       });
-    //     });
-    //   this.debugFolder
-    //     .add(this.material.uniforms.uColorMultiplier, "value")
-    //     .min(-50)
-    //     .max(50)
-    //     .step(0.01)
-    //     .name("uColorMultiplier")
-    //     .onChange((value) => {
-    //       this.items.forEach((item) => {
-    //         item.material.uniforms.uColorMultiplier.value = value;
-    //       });
-    //     });
-    // }
   }
 
   // composerPass(vertexShader, fragmentShader) {
@@ -254,7 +195,7 @@ export default class Dom2Gl {
 
     this.items.forEach((item) => {
       item.resize();
-      item.update()
+      item.update();
     });
 
     this.camera.resize();
@@ -273,7 +214,6 @@ export default class Dom2Gl {
     this.targetSpeed *= 0.999;
 
     if (this.composer) {
-      // this.customPass.uniforms.uTime.value = this.time.elapsed;
       this.composer.render();
     } else {
       this.renderer.update();
@@ -307,6 +247,7 @@ export default class Dom2Gl {
     });
     this.camera.controls.dispose();
     this.renderer.instance.dispose();
+    
     if (this.debug.active) this.debug.ui.destroy();
   }
 }

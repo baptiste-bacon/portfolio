@@ -2,7 +2,7 @@ import * as THREE from "three";
 import halftoneVertexShader from "../../shaders/halftone/vertex.glsl";
 import halftoneFragmentShader from "../../shaders/halftone/fragment.glsl";
 
-import { lerp } from "three/src/math/MathUtils.js";
+import { clamp, lerp } from "three/src/math/MathUtils.js";
 
 export default class Tentacle {
   constructor(experience) {
@@ -153,9 +153,14 @@ export default class Tentacle {
   update() {
     const parallaxX = this.cursor.x;
     const parallaxY = -this.cursor.y;
-    this.model.position.x += (parallaxX - this.model.position.x) * this.time.delta * 0.0025;
-    this.model.position.y += (parallaxY + this.model.position.y) *  0.05;
-    
+    this.model.position.x +=
+      (parallaxX - this.model.position.x) * 0.05;
+    this.model.position.y += clamp(
+      (parallaxY + this.model.position.y) * 0.05,
+      0,
+      1
+    );
+
     if (this.scroll) {
       this.playScrollAnimations();
     }
@@ -180,7 +185,7 @@ export default class Tentacle {
       func: () => {
         this.model.position.y = lerp(
           this.initialPosition.y,
-          -15,
+          -18,
           this.scroll.scalePercent(0, 100)
         );
       },

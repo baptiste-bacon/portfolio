@@ -23,7 +23,7 @@ export default class Transition {
     this.preloaderEl = document.querySelector("div.preloader");
     this.preloaderLogo = this.preloaderEl.querySelector(".preloaderLogo");
 
-    this.navLogo = document.querySelector('.navLogo')
+    this.navLogo = document.querySelector(".navLogo");
 
     // Resize event
     this.sizes.on("resize", () => {
@@ -38,41 +38,65 @@ export default class Transition {
     this.setMesh();
 
     this.preloaderTimeline = gsap.timeline();
-    // Progress
+
+    const delay = 0.5;
+    let animationStarted = false; // Flag to check if the animation has started
+
     this.resources.on("progress", (progress) => {
-      gsap.to(".clipRect", {
-        attr: {
-          y: `${progress / 100}%`,
-        },
-        ease: "power1.out",
-        duration: 1,
-      });
+      if (!animationStarted) {
+        animationStarted = true; // Set the flag to true to prevent further calls
+
+        setTimeout(() => {
+          // Animate the clipRect
+          gsap.to(".clipRect", {
+            attr: {
+              y: `${progress / 100}%`,
+            },
+            ease: "power3.out",
+            duration: 0.75,
+            onComplete: this.handlePreloaderLogoAnimation.bind(this),
+          });
+        }, delay * 1000); // Convert seconds to milliseconds
+      }
     });
+  }
 
-    this.resources.on("ready", () => {
-      gsap.to(this.preloaderLogo, {
-        top: "4rem",
-        left: "10rem",
-        width: "4.5rem",
-        transform: "translate(0,0)",
-        ease: "power2.out",
-        duration: 1,
-        delay: 0.75,
-        onComplete: () => {
-          this.animateOut(2, 0);
-          gsap.to(this.preloaderLogo, {
-            autoAlpha: 0,
-            duration: 0,
-            delay: 1.75,
-          });
-
-          gsap.to(this.navLogo, {
-            autoAlpha: 1,
-            duration: 0,
-            delay: 1.7,
-          });
-        },
+  // Function to handle the animation of the preloader logo
+  handlePreloaderLogoAnimation() {
+    gsap
+      .to(this.preloaderLogo, {
+        scale: 1.1,
+        duration: 0.25,
+        ease: "power3.out",
+      })
+      .then(() => {
+        gsap.to(this.preloaderLogo, {
+          top: "4rem",
+          left: "10rem",
+          width: "4.5rem",
+          transform: "translate(0,0)",
+          ease: "power2.inOut",
+          duration: 1,
+          onComplete: this.handleFinalAnimations.bind(this),
+        });
       });
+  }
+
+  // Function to handle the final set of animations
+  handleFinalAnimations() {
+    this.animateOut(1.5, 0).then(() => {
+      this.animateLogo();
+    });
+  }
+
+  animateLogo() {
+    gsap.to(this.preloaderLogo, {
+      autoAlpha: 0,
+      duration: 0,
+    });
+    gsap.to(this.navLogo, {
+      autoAlpha: 1,
+      duration: 0,
     });
   }
 

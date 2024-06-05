@@ -39,49 +39,50 @@ export default class Item {
 
     // use the IntersectionObserver API to check when the element is inside the viewport
     // only then the element translation will be updated
-    // this.intersectionRatio;
-    // let options = {
-    //   root: null,
-    //   rootMargin: "0px",
-    //   threshold: [0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-    // };
-    // this.observer = new IntersectionObserver((entries) => {
-    //   entries.forEach((entry) => {
-    //     this.positions.push(entry.boundingClientRect.y);
-    //     let compareArray = this.positions.slice(
-    //       this.positions.length - 2,
-    //       this.positions.length
-    //     );
-    //     let down = compareArray[0] > compareArray[1] ? true : false;
+    this.intersectionRatio;
+    let options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: [0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    };
 
-    //     this.isVisible = entry.intersectionRatio > 0.0;
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        this.positions.push(entry.boundingClientRect.y);
+        let compareArray = this.positions.slice(
+          this.positions.length - 2,
+          this.positions.length
+        );
+        let down = compareArray[0] > compareArray[1] ? true : false;
 
-    //     this.shouldRollBack = false;
-    //     this.shouldUnRoll = false;
-    //     if (
-    //       entry.intersectionRatio < 0.5 &&
-    //       entry.boundingClientRect.y > -200 &&
-    //       this.isVisible &&
-    //       !down
-    //     ) {
-    //       this.shouldRollBack = true;
-    //     }
+        this.isVisible = entry.intersectionRatio > 0.0;
 
-    //     if (
-    //       entry.intersectionRatio > 0.5 &&
-    //       entry.boundingClientRect.y > -200 &&
-    //       this.isVisible
-    //     ) {
-    //       this.shouldUnRoll = true;
-    //     }
-    //     // console.log(this.isVisible, "vis");
-    //     this.mesh.visible = this.isVisible;
-    //   });
-    // }, options);
-    // this.observer.observe(this.DOM.img);
-    // // init/bind events
-    // window.addEventListener("resize", () => this.resize());
-    // this.update(0);
+        this.shouldRollBack = false;
+        this.shouldUnRoll = false;
+        if (
+          entry.intersectionRatio < 0.5 &&
+          entry.boundingClientRect.y > -200 &&
+          this.isVisible &&
+          !down
+        ) {
+          this.shouldRollBack = true;
+        }
+
+        if (
+          entry.intersectionRatio > 0.5 &&
+          entry.boundingClientRect.y > -200 &&
+          this.isVisible
+        ) {
+          this.shouldUnRoll = true;
+        }
+        // console.log(this.isVisible, "vis");
+        this.mesh.visible = this.isVisible;
+      });
+    }, options);
+    this.observer.observe(this.DOM.img);
+    // init/bind events
+    window.addEventListener("resize", () => this.resize());
+    this.update(0);
   }
 
   getSize() {
@@ -122,9 +123,6 @@ export default class Item {
 
     this.material.uniforms.uProgress.value = 0;
 
-    // this.material.uniforms
-    // console.log(this.material.uniforms);
-
     this.material.uniforms.uTexture.value = texture;
     this.material.uniforms.uTexture.value.needsUpdate = true;
 
@@ -144,14 +142,18 @@ export default class Item {
   }
 
   handleHover(hover) {
+    this.getSize();
+
     if (hover) {
       return gsap.to(this.material.uniforms.uProgress, {
-        duration: 1,
+        duration: 0.5,
+        ease: "power1.out",
         value: 1,
       });
     } else {
       return gsap.to(this.material.uniforms.uProgress, {
-        duration: 1,
+        duration: 0.5,
+        ease: "power1.in",
         value: 0,
       });
     }
@@ -171,14 +173,10 @@ export default class Item {
       this.insideRealTop -
       this.height / 2;
 
-    // this.mesh.position.y = 0;
-
-    this.mesh.position.x =
-      0 - this.sizes.width / 2 + this.left + this.width / 2;
+    const parallaxX = 0 - this.sizes.width / 2 + this.left + this.width / 2;
+    this.mesh.position.x += (parallaxX - this.mesh.position.x) * 0.08 ;
 
     this.material.uniforms.uShift.value =
       this.defaultMaterial.uniforms.uShift.value;
-
-    // this.mesh.position.x = 0;
   }
 }
