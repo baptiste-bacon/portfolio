@@ -33,9 +33,10 @@
 
     position: absolute;
     left: 0;
-    top: 100%;
+    top: 110%;
 
     background: $color-white;
+    border-radius: 1rem;
 
     transform: scaleX(0);
     transform-origin: 100% 50%;
