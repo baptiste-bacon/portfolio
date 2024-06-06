@@ -87,9 +87,7 @@ export default class Dom2Gl {
       if (object.geometry && object.geometry.type === "PlaneGeometry") {
         // Remove the object from its parent
         object.parent.remove(object);
-
         // Dispose of the geometry and material to free up memory
-        console.log(object.material);
         object.geometry.dispose();
         if (object.material) {
           if (Array.isArray(object.material)) {

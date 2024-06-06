@@ -78,24 +78,26 @@
 
   &Item {
     position: relative;
+    overflow: hidden;
+    padding: 0.4rem 1rem;
 
     &::after {
       content: "";
       position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 150%;
-      height: 150%;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      height: 100%;
       border-radius: 0.5rem;
 
-      transform: translate(-50%,-50%);
       z-index: -1;
 
-      transition: background 0.25s ;
+      transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+      background: $color-p8;
     }
 
     &:hover::after {
-      background: $color-p8;
+      transform: translate(0, -100%);
     }
   }
 }
