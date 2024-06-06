@@ -17,14 +17,8 @@ export default class Item {
 
     this.currentScroll = this.dom2Gl.lenis.animatedScroll;
     this.positions = [];
-    this.isHovered = false;
-    // this.animated = false;
-    // this.isBeingAnimatedNow = false;
-    // this.shouldRollBack = false;
-    // this.shouldUnRoll = false;
 
     this.getSize();
-    // this.initEvents();
 
     this.mesh = this.createMesh({
       width: this.width,
@@ -144,14 +138,12 @@ export default class Item {
 
   handleHover(hover) {
     if (hover) {
-      this.isHovered = true;
       return gsap.to(this.material.uniforms.uProgress, {
         duration: 0.5,
         ease: "power1.out",
         value: 1,
       });
     } else {
-      this.isHovered = false;
       return gsap.to(this.material.uniforms.uProgress, {
         duration: 0.5,
         ease: "power1.in",
@@ -161,7 +153,6 @@ export default class Item {
   }
 
   resize() {
-    this.getSize();
     this.mesh.scale.set(this.width, this.height, 200);
   }
 
