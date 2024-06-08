@@ -7,7 +7,7 @@
   font-family: "Bricolage Grotesque", Arial;
 
   @media (max-width: 576px) {
-    padding: 20rem 0;
+    padding: 10rem 0;
   }
 
   .hero {
@@ -15,6 +15,12 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+
+    @media (max-width: 576px) {
+      flex-direction: column-reverse;
+      row-gap: 2rem;
+      margin-bottom: 8rem;
+    }
 
     &Title {
       font-size: 9.6rem;
@@ -25,7 +31,7 @@
       text-transform: uppercase;
 
       @media (max-width: 576px) {
-        font-size: 16rem;
+        font-size: 8rem;
       }
     }
 
@@ -45,7 +51,7 @@
         color: $color-p9;
 
         @media (max-width: 576px) {
-          font-size: 5.2rem;
+          // font-size: 5.2rem;
         }
       }
 
@@ -90,6 +96,10 @@
     margin-bottom: 20rem;
     gap: 20rem;
 
+    @media (max-width: 576px) {
+      gap: 10rem;
+    }
+
     &Title {
       margin-bottom: 5rem;
 
@@ -99,10 +109,6 @@
       color: $color-p8;
 
       text-transform: uppercase;
-
-      @media (max-width: 576px) {
-        font-size: 6.4rem;
-      }
     }
 
     &Desc {
@@ -112,8 +118,7 @@
 
       @media (max-width: 576px) {
         width: auto;
-
-        font-size: 5.2rem;
+        font-size: 2.4rem;
       }
     }
 
@@ -128,15 +133,20 @@
       }
 
       @media (max-width: 576px) {
-        font-size: 5.2rem;
+        font-size: 2.4rem;
         max-width: none;
       }
     }
 
     &Inner {
       display: flex;
+      flex-direction: row-reverse;
       justify-content: space-between;
       gap: 10rem;
+
+      @media (max-width: 576px) {
+        gap: 4rem;
+      }
     }
 
     &Content {
@@ -150,6 +160,10 @@
     display: flex;
     flex-direction: column;
     gap: 30rem;
+
+    @media (max-width: 576px) {
+      gap: 15rem;
+    }
 
     &Figure {
       width: 100%;
@@ -170,19 +184,26 @@
     align-items: center;
     gap: 1.6rem;
 
+    @media (max-width: 576px) {
+      gap: 0.4rem;
+    }
+
     span {
       font-size: 6.4rem;
       font-variation-settings: "wght" 800;
       color: $color-white;
 
       @media (max-width: 576px) {
-        font-size: 8rem;
+        font-size: 4rem;
       }
     }
 
     svg {
       width: 5.3rem;
-      height: 4.6;
+
+      @media (max-width: 576px) {
+        width: 4rem;
+      }
     }
   }
 
@@ -191,7 +212,7 @@
     color: $color-p8;
 
     @media (max-width: 576px) {
-      font-size: 5.2rem;
+      // font-size: 5.2rem;
     }
   }
 }
