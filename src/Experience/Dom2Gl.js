@@ -22,7 +22,7 @@ export default class Dom2Gl {
     this.items = [];
     this.debugObject = {};
     // Colors
-    this.debugObject.depthColor = "#E099F1";
+    this.debugObject.depthColor = "#9100B4";
     this.images = [];
 
     this.debug = new Debug();
