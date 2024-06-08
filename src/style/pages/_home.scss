@@ -6,10 +6,18 @@
 
     padding: 20rem 0;
 
+    @media (max-width: 576px) {
+      padding: 20rem 0 10rem;
+    }
+
     &Subtitle {
       font-size: 5.4rem;
       color: $color-p9;
       letter-spacing: -0.2rem;
+
+      @media (max-width: 576px) {
+        font-size: 3.6rem;
+      }
     }
 
     &Title {
@@ -19,7 +27,8 @@
       letter-spacing: -0.65rem;
 
       @media (max-width: 576px) {
-        font-size: 18rem;
+        font-size: 7.2rem;
+        letter-spacing: -0.4rem;
       }
     }
   }
@@ -29,8 +38,16 @@
 
     padding: 8rem 0 20rem;
 
+    @media (max-width: 576px) {
+      padding: 10rem 0;
+    }
+
     &Subtitle {
       margin-bottom: 10rem;
+
+      @media (max-width: 576px) {
+        margin-bottom: 6.4rem;
+      }
     }
 
     &Text {
@@ -39,11 +56,19 @@
 
       text-align: center;
       // text-transform: uppercase;
+
+      @media (max-width: 576px) {
+        font-size: 4rem;
+      }
     }
   }
 
   .highlight {
     padding: 8rem 0 20rem;
+
+    @media (max-width: 576px) {
+      padding: 10rem 0 20rem;
+    }
 
     &Subtitle {
       margin-bottom: 5.5rem;
@@ -68,8 +93,11 @@
         color: $color-p8;
 
         @media (max-width: 1460px) {
-          font-size: 14rem;
-          line-height: 14rem;
+          font-size: 6.4rem;
+          line-height: 6.4rem;
+        }
+        @media (max-width: 576px) {
+          margin: 0 auto;
         }
 
         span {
@@ -103,7 +131,6 @@
         @media (max-width: 1460px) {
           height: 9rem;
         }
-
         @media (max-width: 576px) {
           display: none;
         }
@@ -113,31 +140,35 @@
         transform: translateX(-8rem);
 
         @media (max-width: 576px) {
-          transform: translateX(-4rem);
+          transform: translateX(-14vw);
+          // transform: translateX(0);
         }
       }
       &:nth-child(2) {
         transform: translateX(-16rem);
+
         @media (max-width: 576px) {
-          transform: translateX(-6rem);
+          transform: translateX(0);
         }
       }
       &:nth-child(3) {
         transform: translateX(-8rem);
+
         @media (max-width: 576px) {
           transform: translateX(0);
         }
       }
       &:nth-child(4) {
-        // transform: translateX(-10rem);
-        @media (max-width: 576px) {
-          transform: translateX(8rem);
-        }
+
       }
+
       &:nth-child(5) {
+        display: inline-block;
         transform: translateX(8rem);
+
         @media (max-width: 576px) {
-          transform: translateX(12rem);
+          transform: translateX(8vw);
+          // transform: translateX(0);
         }
       }
     }
@@ -145,6 +176,10 @@
 
   .skills {
     margin-bottom: 30rem;
+
+    @media (max-width: 576px) {
+      margin-bottom: 10rem;
+    }
 
     &Subtitle {
       margin-bottom: 5.5rem;
@@ -155,6 +190,10 @@
       justify-content: space-between;
       gap: 3rem;
       flex-wrap: wrap;
+
+      @media (max-width: 576px) {
+        gap: 1rem;
+      }
     }
 
     &Card {
@@ -164,7 +203,7 @@
       // background-color: $color-p2;
 
       display: flex;
-      flex: 1 1 0;
+      flex: 1 1 20%;
       flex-direction: column;
       justify-content: space-between;
 
@@ -174,7 +213,7 @@
       transition: background-color 0.1s ease-out, transform 0.25s ease-out;
 
       @media (max-width: 576px) {
-        flex: 1 1 40%;
+        padding: 1.2rem;
       }
 
       &:hover {
@@ -189,7 +228,7 @@
         font-size: 2.4rem;
 
         @media (max-width: 576px) {
-          font-size: 4.4rem;
+          // font-size: 4.4rem;
         }
       }
 
@@ -198,7 +237,7 @@
         font-variation-settings: "wght" 700;
 
         @media (max-width: 576px) {
-          font-size: 5.2rem;
+          font-size: 2.4rem;
         }
       }
     }
@@ -208,6 +247,10 @@
     margin-bottom: 30rem;
     padding-top: 8rem;
     color: $color-white;
+
+    @media (max-width: 576px) {
+      margin-bottom: 10rem;
+    }
 
     &Subtitle {
       margin-bottom: 5.5rem;
@@ -224,13 +267,18 @@
       color: $color-p7;
 
       @media (max-width: 576px) {
-        font-size: 7.2rem;
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
       }
     }
 
     &Phone {
       font-size: 6.4rem;
       font-variation-settings: "wght" 200;
+
+      @media (max-width: 576px) {
+        font-size: 4rem;
+      }
     }
   }
 }

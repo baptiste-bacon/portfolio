@@ -9,8 +9,7 @@
   color: $color-white;
 
   @media (max-width: 576px) {
-    font-size: 4.6rem;
-
+    font-size: 1.8rem;
   }
 
   &.-hidden {
@@ -31,16 +30,20 @@
 
     box-sizing: border-box;
     overflow: hidden;
+
+    @media (max-width: 576px) {
+      padding: 2rem 1.6rem 0;
+    }
   }
 
   &Logo {
     opacity: 0;
     visibility: hidden;
-    
+
     width: 4.5rem;
 
     @media (max-width: 576px) {
-      width: 10rem;
+      // width: 10rem;
     }
 
     svg {
@@ -48,20 +51,20 @@
     }
 
     .logoEyebrow-l {
-        transform-origin: 50% 50%;
-        transition: transform 0.25s 0.05s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+      transform-origin: 50% 50%;
+      transition: transform 0.25s 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .logoEyebrow-r {
-        transform-origin: 50% 50%;
-        transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+      transform-origin: 50% 50%;
+      transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .logoEye-l {
-        transform-origin: 50% 50%;
-        transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+      transform-origin: 50% 50%;
+      transition: transform 0.25s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     .logoEye-r {
-        transform-origin: 50% 50%;
-        transition: transform 0.05s 0.15s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+      transform-origin: 50% 50%;
+      transition: transform 0.05s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     &:hover {
@@ -83,6 +86,11 @@
   &List {
     display: flex;
     gap: 6.4rem;
+
+    @media (max-width: 576px) {
+      gap: 0.8rem;
+
+    }
   }
 
   &Item {
