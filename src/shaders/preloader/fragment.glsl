@@ -1,5 +1,6 @@
 uniform float uProgress;
 uniform float uTime;
+uniform float uNoiseAmp;
 uniform vec2 uRes;
 
 varying vec2 vUv;
@@ -39,14 +40,14 @@ float noise(vec3 p) {
 
 vec3 cw = vec3(1.0);
 vec3 c1 = vec3(0.176, 0., 0.216);
-vec3 c2 = vec3(0.306, 0., 0.38);
-vec3 c3 = vec3(0.435, 0., 0.541);
-vec3 c4 = vec3(0.569, 0., 0.706);
-vec3 c5 = vec3(0.698, 0., 0.867);
+// vec3 c2 = vec3(0.306, 0., 0.38);
+// vec3 c3 = vec3(0.435, 0., 0.541);
+// vec3 c4 = vec3(0.569, 0., 0.706);
+// vec3 c5 = vec3(0.698, 0., 0.867);
 vec3 c6 = vec3(0.745, 0.149, 0.886);
-vec3 c7 = vec3(0.788, 0.302, 0.906);
-vec3 c8 = vec3(0.835, 0.451, 0.925);
-vec3 c9 = vec3(0.878, 0.6, 0.945);
+// vec3 c7 = vec3(0.788, 0.302, 0.906);
+// vec3 c8 = vec3(0.835, 0.451, 0.925);
+// vec3 c9 = vec3(0.878, 0.6, 0.945);
 
 void main() {
     vec2 st = gl_FragCoord.xy / uRes.xy;
@@ -54,7 +55,7 @@ void main() {
     float offx = st.x + st.y + uTime * .0001;
     float offy = st.y - uTime * .001;
 
-    float n = noise(vec3(offx, offy, uTime * 0.00001) * 4.);
+    float n = noise(vec3(offx, offy, uTime * 0.00001) * uNoiseAmp);
     n = smoothstep(n, 1., uProgress);
 
     // vec4 image1 = mix(vec4(0.80, 1.00, 0.11, 1), vec4(0.8784313725490196, 0.6, 0.9450980392156862, 1), n);

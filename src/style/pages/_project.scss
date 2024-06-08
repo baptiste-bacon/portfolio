@@ -6,6 +6,10 @@
 
   font-family: "Bricolage Grotesque", Arial;
 
+  @media (max-width: 576px) {
+    padding: 20rem 0;
+  }
+
   .hero {
     margin-bottom: 14rem;
     display: flex;
@@ -19,6 +23,10 @@
       color: $color-white;
 
       text-transform: uppercase;
+
+      @media (max-width: 576px) {
+        font-size: 16rem;
+      }
     }
 
     &Link {
@@ -35,6 +43,10 @@
         font-size: 2.8rem;
         font-variation-settings: "wght" 600;
         color: $color-p9;
+
+        @media (max-width: 576px) {
+          font-size: 5.2rem;
+        }
       }
 
       &::after {
@@ -87,12 +99,22 @@
       color: $color-p8;
 
       text-transform: uppercase;
+
+      @media (max-width: 576px) {
+        font-size: 6.4rem;
+      }
     }
 
     &Desc {
       font-size: 2rem;
       width: 52rem;
       color: $color-white;
+
+      @media (max-width: 576px) {
+        width: auto;
+
+        font-size: 5.2rem;
+      }
     }
 
     &Text {
@@ -103,6 +125,11 @@
       span {
         display: block;
         margin-bottom: 0.8rem;
+      }
+
+      @media (max-width: 576px) {
+        font-size: 5.2rem;
+        max-width: none;
       }
     }
 
@@ -147,6 +174,10 @@
       font-size: 6.4rem;
       font-variation-settings: "wght" 800;
       color: $color-white;
+
+      @media (max-width: 576px) {
+        font-size: 8rem;
+      }
     }
 
     svg {
@@ -158,5 +189,9 @@
   &Date {
     font-size: 2.4rem;
     color: $color-p8;
+
+    @media (max-width: 576px) {
+      font-size: 5.2rem;
+    }
   }
 }

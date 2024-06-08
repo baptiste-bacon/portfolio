@@ -7,6 +7,8 @@ import { gsap } from "gsap";
 import Renderer from "./Renderer";
 import Camera from "./Camera";
 
+import { isMobileDevice } from "../utils.js";
+
 export default class Transition {
   constructor(time, sizes, resources) {
     this.resources = resources;
@@ -63,6 +65,13 @@ export default class Transition {
 
   // Function to handle the animation of the preloader logo
   handlePreloaderLogoAnimation() {
+    let logoWidth;
+    if (isMobileDevice()) {
+      logoWidth = 10;
+    } else {
+      logoWidth = 4.5;
+    }
+
     gsap
       .to(this.preloaderLogo, {
         scale: 1.1,
@@ -73,7 +82,7 @@ export default class Transition {
         gsap.to(this.preloaderLogo, {
           top: "4rem",
           left: "10rem",
-          width: "4.5rem",
+          width: `${logoWidth}rem`,
           transform: "translate(0,0)",
           ease: "power2.inOut",
           duration: 1,
@@ -101,6 +110,13 @@ export default class Transition {
   }
 
   setMesh() {
+    let noiseAmp;
+    if (isMobileDevice()) {
+      noiseAmp = 1.5;
+    } else {
+      noiseAmp = 4.0;
+    }
+
     this.overlayGeometry = new THREE.PlaneGeometry(2, 2, 1, 1);
     this.overlayMaterial = new THREE.ShaderMaterial({
       fragmentShader: preloaderFragmentShader,
@@ -113,6 +129,9 @@ export default class Transition {
         uTime: { value: 0.0 },
         uRes: {
           value: new THREE.Vector2(this.sizes.width, this.sizes.height),
+        },
+        uNoiseAmp: {
+          value: noiseAmp,
         },
       },
       transparent: true,

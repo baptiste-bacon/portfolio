@@ -18,5 +18,9 @@
     width: 10rem;
 
     transform: translate(-50%, -50%);
+
+    @media (max-width: 576px) {
+      width: 24rem;
+    }
   }
 }

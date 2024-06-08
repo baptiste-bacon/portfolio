@@ -19,7 +19,7 @@
       letter-spacing: -0.65rem;
 
       @media (max-width: 576px) {
-        font-size: 20rem;
+        font-size: 18rem;
       }
     }
   }
@@ -102,6 +102,10 @@
 
         @media (max-width: 1460px) {
           height: 9rem;
+        }
+
+        @media (max-width: 576px) {
+          display: none;
         }
       }
 

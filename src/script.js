@@ -15,6 +15,8 @@ import ProjectNoise from "./Experience/ProjectNoise.js";
 import Sizes from "./Experience/Utils/Sizes.js";
 import Nav from "./App/Nav.js";
 
+import { isMobileDevice } from "./utils.js";
+
 class App {
   constructor() {
     this.time = new Time();
@@ -110,7 +112,9 @@ class App {
             that.lenis.scrollTo(0, { immediate: true });
             that.toggleNav(true);
             that.experience.play();
-            that.initProjectNoise(data.next.container);
+            if (!isMobileDevice()) {
+              that.initProjectNoise(data.next.container);
+            }
           },
           afterLeave() {
             // Add your afterLeave logic for the homepage namespace
@@ -124,8 +128,10 @@ class App {
             // Add your afterEnter logic for the projectpage namespace
             that.lenis.scrollTo(0, { immediate: true });
             that.toggleNav(false);
-            that.initProjectDistortion(data.next.container);
-            // that.projectDistortion.addObjects
+
+            if (!isMobileDevice()) {
+              that.initProjectDistortion(data.next.container);
+            }
 
             // Trigger videos autoplay
             let vids = document.querySelectorAll("video");

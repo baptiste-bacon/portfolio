@@ -16,12 +16,20 @@
   &Header {
     display: flex;
     justify-content: space-between;
+
+    @media (max-width: 576px){
+      margin-bottom: 4rem;
+    }
   }
 
   &Inner {
     display: flex;
     justify-content: space-between;
     gap: 10rem;
+
+    @media (max-width: 576px){
+      gap: 4rem;
+    }
   }
 
   &Title {
@@ -36,7 +44,7 @@
     }
 
     @media (max-width: 576px){
-      // font-size: 16vw;
+      font-size: 14vw;
     }
   }
 
@@ -44,5 +52,10 @@
     font-size: 3.2rem;
     font-variation-settings: "wght" 400;
     color: $color-white;
+
+    @media (max-width: 576px){
+      font-size: 5.2rem;
+
+    }
   }
 }

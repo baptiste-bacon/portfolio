@@ -5,8 +5,8 @@ export default class Item {
   constructor(el, dom2Gl) {
     this.dom2Gl = dom2Gl;
     this.sizes = this.dom2Gl.sizes;
+    this.debug = this.dom2Gl.debug
 
-    this.debugFolder = this.dom2Gl.debug.debugFolder;
     this.defaultMaterial = this.dom2Gl.material;
     this.geometry = this.dom2Gl.geometry;
 
@@ -19,6 +19,11 @@ export default class Item {
     this.positions = [];
 
     this.getSize();
+
+    // Debug
+    if (this.debug.active) {
+      this.debugFolder = this.debug.ui.addFolder("Item");
+    }
 
     this.mesh = this.createMesh({
       width: this.width,
@@ -34,50 +39,50 @@ export default class Item {
 
     // use the IntersectionObserver API to check when the element is inside the viewport
     // only then the element translation will be updated
-    this.intersectionRatio;
-    let options = {
-      root: null,
-      rootMargin: "0px",
-      threshold: [0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-    };
+    // this.intersectionRatio;
+    // let options = {
+    //   root: null,
+    //   rootMargin: "0px",
+    //   threshold: [0, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    // };
 
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        this.positions.push(entry.boundingClientRect.y);
-        let compareArray = this.positions.slice(
-          this.positions.length - 2,
-          this.positions.length
-        );
-        let down = compareArray[0] > compareArray[1] ? true : false;
+    // this.observer = new IntersectionObserver((entries) => {
+    //   entries.forEach((entry) => {
+    //     this.positions.push(entry.boundingClientRect.y);
+    //     let compareArray = this.positions.slice(
+    //       this.positions.length - 2,
+    //       this.positions.length
+    //     );
+    //     let down = compareArray[0] > compareArray[1] ? true : false;
 
-        this.isVisible = entry.intersectionRatio > 0.0;
+    //     this.isVisible = entry.intersectionRatio > 0.0;
 
-        this.shouldRollBack = false;
-        this.shouldUnRoll = false;
-        if (
-          entry.intersectionRatio < 0.5 &&
-          entry.boundingClientRect.y > -200 &&
-          this.isVisible &&
-          !down
-        ) {
-          this.shouldRollBack = true;
-        }
+    //     this.shouldRollBack = false;
+    //     this.shouldUnRoll = false;
+    //     if (
+    //       entry.intersectionRatio < 0.5 &&
+    //       entry.boundingClientRect.y > -200 &&
+    //       this.isVisible &&
+    //       !down
+    //     ) {
+    //       this.shouldRollBack = true;
+    //     }
 
-        if (
-          entry.intersectionRatio > 0.5 &&
-          entry.boundingClientRect.y > -200 &&
-          this.isVisible
-        ) {
-          this.shouldUnRoll = true;
-        }
-        // console.log(this.isVisible, "vis");
-        this.mesh.visible = this.isVisible;
-      });
-    }, options);
-    this.observer.observe(this.DOM.img);
-    // init/bind events
-    window.addEventListener("resize", () => this.resize());
-    this.update(0);
+    //     if (
+    //       entry.intersectionRatio > 0.5 &&
+    //       entry.boundingClientRect.y > -200 &&
+    //       this.isVisible
+    //     ) {
+    //       this.shouldUnRoll = true;
+    //     }
+    //     // console.log(this.isVisible, "vis");
+    //     this.mesh.visible = this.isVisible;
+    //   });
+    // }, options);
+    // this.observer.observe(this.DOM.img);
+    // // init/bind events
+    // window.addEventListener("resize", () => this.resize());
+    // this.update(0);
   }
 
   getSize() {
@@ -124,6 +129,21 @@ export default class Item {
     let mesh = new THREE.Mesh(this.geometry, this.material);
     mesh.scale.set(o.width, o.height, o.width / 2);
 
+    if(this.debug.active){
+      this.debugFolder
+      .add(this.material.uniforms.uColorOffset, "value")
+      .min(0)
+      .max(1)
+      .step(0.001)
+      .name("uColorOffset");
+    this.debugFolder
+      .add(this.material.uniforms.uColorMultiplier, "value")
+      .min(0)
+      .max(10)
+      .step(0.001)
+      .name("uColorMultiplier");
+    }
+
     return mesh;
   }
 
@@ -140,13 +160,13 @@ export default class Item {
     if (hover) {
       return gsap.to(this.material.uniforms.uProgress, {
         duration: 0.5,
-        ease: "power1.out",
+        ease: "power3.out",
         value: 1,
       });
     } else {
       return gsap.to(this.material.uniforms.uProgress, {
         duration: 0.5,
-        ease: "power1.in",
+        ease: "power3.out",
         value: 0,
       });
     }

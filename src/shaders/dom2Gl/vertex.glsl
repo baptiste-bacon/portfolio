@@ -1,5 +1,6 @@
 varying vec2 vUv;
 varying float vElevation;
+varying float vNoiseAmp;
 
 uniform float uTime;
 uniform float uNoiseFreq;
@@ -36,15 +37,17 @@ float noise(vec3 p) {
 
 void main() {
   vUv = uv;
+  float noiseFreq = 1.5;
+  float noiseAmp = 0.1;
 
   vec3 pos = position;
-  vec3 noisePos = vec3(pos.x * uNoiseFreq + uTime * 0.001, pos.y, pos.z);
-  
-  float noiseValue = noise(noisePos) * uNoiseAmp;
+  vec3 noisePos = vec3(pos.x * noiseFreq + uTime * 0.002, pos.y, pos.z);
+  float noiseValue = noise(noisePos) * noiseAmp;
   pos.z += noiseValue;
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.);
 
   // Varyings
   vElevation = noiseValue;
+  vNoiseAmp = noiseAmp;
 }

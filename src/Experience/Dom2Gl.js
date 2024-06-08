@@ -32,7 +32,7 @@ export default class Dom2Gl {
 
     // Debug
     if (this.debug.active) {
-      this.debugFolder = this.debug.ui.addFolder("tentacle");
+      this.debugFolder = this.debug.ui.addFolder("D");
     }
 
     this.initCamera();
@@ -150,17 +150,18 @@ export default class Dom2Gl {
         uvRate1: {
           value: new THREE.Vector2(1, 1),
         },
-        uNoiseAmp: { value: 0.2 },
-        uNoiseFreq: { value: 2.0 },
+        uNoiseAmp: { value: 0.25 },
+        uNoiseFreq: { value: 1.5 },
         uDepthColor: { value: new THREE.Color(this.debugObject.depthColor) },
-        uColorOffset: { value: -0.35 },
-        uColorMultiplier: { value: 2 },
+        uColorOffset: { value: 0.25 },
+        uColorMultiplier: { value: 2.0 },
       },
       // wireframe: true,
       transparent: true,
       vertexShader: this.vertex,
       fragmentShader: this.fragment,
     });
+
   }
 
   // composerPass(vertexShader, fragmentShader) {
