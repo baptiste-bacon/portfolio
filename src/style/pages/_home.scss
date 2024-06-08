@@ -140,6 +140,7 @@
         transform: translateX(-8rem);
 
         @media (max-width: 576px) {
+          display: inline-block;
           transform: translateX(-14vw);
           // transform: translateX(0);
         }
@@ -159,14 +160,13 @@
         }
       }
       &:nth-child(4) {
-
       }
 
       &:nth-child(5) {
-        display: inline-block;
         transform: translateX(8rem);
 
         @media (max-width: 576px) {
+          display: inline-block;
           transform: translateX(8vw);
           // transform: translateX(0);
         }

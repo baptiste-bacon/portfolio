@@ -15,10 +15,10 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    flex-wrap: wrap;
 
     @media (max-width: 576px) {
       flex-direction: column-reverse;
-      row-gap: 2rem;
       margin-bottom: 8rem;
     }
 
@@ -31,7 +31,7 @@
       text-transform: uppercase;
 
       @media (max-width: 576px) {
-        font-size: 8rem;
+        font-size: 6.4rem;
       }
     }
 
@@ -51,7 +51,7 @@
         color: $color-p9;
 
         @media (max-width: 576px) {
-          // font-size: 5.2rem;
+          font-size: 2rem;
         }
       }
 
@@ -97,7 +97,8 @@
     gap: 20rem;
 
     @media (max-width: 576px) {
-      gap: 10rem;
+      gap: 6rem;
+      margin-bottom: 10rem;
     }
 
     &Title {
@@ -109,6 +110,11 @@
       color: $color-p8;
 
       text-transform: uppercase;
+
+      @media (max-width: 576px) {
+        font-size: 2rem;
+        margin-bottom: 3.2rem;
+      }
     }
 
     &Desc {
@@ -118,7 +124,7 @@
 
       @media (max-width: 576px) {
         width: auto;
-        font-size: 2.4rem;
+        font-size: 2rem;
       }
     }
 
@@ -133,7 +139,7 @@
       }
 
       @media (max-width: 576px) {
-        font-size: 2.4rem;
+        font-size: 2rem;
         max-width: none;
       }
     }
@@ -177,6 +183,10 @@
     align-items: center;
 
     margin-top: 16rem;
+
+    @media (max-width: 576px) {
+      margin-top: 8rem;
+    }
   }
 
   &Link {
