@@ -187,15 +187,30 @@
     @media (max-width: 576px) {
       margin-top: 8rem;
     }
+
+    &__inner{
+      position: relative;
+    }
   }
 
   &Link {
+    position: relative;
+
     display: flex;
     align-items: center;
     gap: 1.6rem;
+    overflow: hidden;
 
     @media (max-width: 576px) {
       gap: 0.4rem;
+    }
+
+    &:hover span{
+      transform: translateY(-100%);
+    }
+
+    &:hover svg{
+      transform: rotateZ(-45deg);
     }
 
     span {
@@ -203,13 +218,27 @@
       font-variation-settings: "wght" 800;
       color: $color-white;
 
+      transition: transform 0.25s ease-out;
+
       @media (max-width: 576px) {
         font-size: 4rem;
+      }
+
+      &:first-of-type{
+        display: block;
+      }
+
+      &:last-of-type{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
       }
     }
 
     svg {
       width: 5.3rem;
+      transition: transform 0.15s ease-out;
 
       @media (max-width: 576px) {
         width: 4rem;
