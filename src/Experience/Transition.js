@@ -67,12 +67,15 @@ export default class Transition {
   handlePreloaderLogoAnimation() {
     let logoWidth;
     let logoLeft;
+    let logoTop;
     if (isMobileDevice()) {
       logoWidth = 4.5;
       logoLeft = 1.6;
+      logoTop = 2;
     } else {
       logoWidth = 4.5;
       logoLeft = 10;
+      logoTop = 4;
     }
 
     gsap
@@ -83,7 +86,7 @@ export default class Transition {
       })
       .then(() => {
         gsap.to(this.preloaderLogo, {
-          top: "4rem",
+          top:  `${logoTop}rem`,
           left: `${logoLeft}rem`,
           width: `${logoWidth}rem`,
           transform: "translate(0,0)",

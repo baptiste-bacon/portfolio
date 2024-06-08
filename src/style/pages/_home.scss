@@ -93,11 +93,13 @@
         color: $color-p8;
 
         @media (max-width: 1460px) {
-          font-size: 6.4rem;
-          line-height: 6.4rem;
+          font-size: 16rem;
+          line-height: 14rem;
         }
         @media (max-width: 576px) {
           margin: 0 auto;
+          font-size: 6rem;
+          line-height: 5.2rem;
         }
 
         span {
@@ -212,6 +214,9 @@
 
       transition: background-color 0.1s ease-out, transform 0.25s ease-out;
 
+      @media (max-width: 1460px) {
+        flex: 1 1 14%;
+      }
       @media (max-width: 576px) {
         padding: 1.2rem;
       }
