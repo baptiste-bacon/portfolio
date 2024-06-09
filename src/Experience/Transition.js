@@ -62,6 +62,7 @@ export default class Transition {
     });
 
     this.resources.on("ready", () => {
+      console.log('ready');
       this.preloaderTimeline.eventCallback(
         "onComplete",
         this.handlePreloaderLogoAnimation.bind(this)
