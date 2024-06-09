@@ -14,8 +14,8 @@ export default class Environment {
     }
 
     // Setup
-    this.setSunLight();
-    this.setEnvironmentMap();
+    // this.setSunLight();
+    // this.setEnvironmentMap();
   }
 
   setSunLight() {

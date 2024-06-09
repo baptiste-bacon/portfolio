@@ -205,7 +205,7 @@
       // background-color: $color-p2;
 
       display: flex;
-      flex: 1 1 20%;
+      flex: 1 1 18%;
       flex-direction: column;
       justify-content: space-between;
 
@@ -214,9 +214,6 @@
 
       transition: background-color 0.1s ease-out, transform 0.25s ease-out;
 
-      @media (max-width: 1460px) {
-        flex: 1 1 14%;
-      }
       @media (max-width: 576px) {
         padding: 1.2rem;
       }
