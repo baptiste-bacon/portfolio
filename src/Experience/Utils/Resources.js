@@ -47,15 +47,12 @@ export default class Ressources extends EventEmitter {
           this.sourceLoaded(source, file);
         });
       } else if (source.type === "texture") {
-        this.loaders.textureLoader.load(source.path, (file) => {
-          // console.log("source :",source, file)
-          this.sourceLoaded(source, file);
-        });
+        continue; // Skip loading texture files
       } else if (source.type === "cubeTexture") {
-        this.loaders.cubeTextureLoader.load(source.path, (file) => {
-          // console.log("source :",source, file)
-          this.sourceLoaded(source, file);
-        });
+        // this.loaders.cubeTextureLoader.load(source.path, (file) => {
+        // console.log("source :",source, file)
+        // this.sourceLoaded(source, file);
+        // });
       }
     }
   }
@@ -63,9 +60,5 @@ export default class Ressources extends EventEmitter {
   sourceLoaded(source, file) {
     this.items[source.name] = file;
     this.loaded++;
-
-    // if (this.loaded === this.toLoad) {
-    //   this.trigger("ready");
-    // }
   }
 }

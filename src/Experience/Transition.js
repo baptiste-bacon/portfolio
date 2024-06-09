@@ -50,16 +50,22 @@ export default class Transition {
 
         setTimeout(() => {
           // Animate the clipRect
-          gsap.to(".clipRect", {
+          this.preloaderTimeline.to(".clipRect", {
             attr: {
               y: `${progress / 100}%`,
             },
             ease: "power3.out",
             duration: 0.75,
-            onComplete: this.handlePreloaderLogoAnimation.bind(this),
           });
         }, delay * 1000); // Convert seconds to milliseconds
       }
+    });
+
+    this.resources.on("ready", () => {
+      this.preloaderTimeline.eventCallback(
+        "onComplete",
+        this.handlePreloaderLogoAnimation.bind(this)
+      );
     });
   }
 
@@ -86,7 +92,7 @@ export default class Transition {
       })
       .then(() => {
         gsap.to(this.preloaderLogo, {
-          top:  `${logoTop}rem`,
+          top: `${logoTop}rem`,
           left: `${logoLeft}rem`,
           width: `${logoWidth}rem`,
           transform: "translate(0,0)",
