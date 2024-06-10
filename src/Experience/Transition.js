@@ -12,6 +12,7 @@ import { isMobileDevice } from "../utils.js";
 export default class Transition {
   constructor(time, sizes, resources) {
     this.resources = resources;
+    this.isMobile = isMobileDevice();
 
     this.time = time;
     this.sizes = sizes;
@@ -39,92 +40,80 @@ export default class Transition {
     });
     this.setMesh();
 
-    this.preloaderTimeline = gsap.timeline();
-
-    const delay = 0.5;
-    let animationStarted = false; // Flag to check if the animation has started
-
+    this.animation = gsap.timeline();
+    this.isFirstCall   = true;
     this.resources.on("progress", (progress) => {
-      if (!animationStarted) {
-        animationStarted = true; // Set the flag to true to prevent further calls
-
-        setTimeout(() => {
-          // Animate the clipRect
-          this.preloaderTimeline.to(".clipRect", {
-            attr: {
-              y: `${progress / 100}%`,
-            },
-            ease: "power3.out",
-            duration: 0.75,
-          });
-        }, delay * 1000); // Convert seconds to milliseconds
-      }
+      this.loadingAnimation(progress);
     });
 
     this.resources.on("ready", () => {
-      console.log('ready');
-      this.preloaderTimeline.eventCallback(
-        "onComplete",
-        this.handlePreloaderLogoAnimation.bind(this)
-      );
+      this.animation.then(() => {
+        this.loadedAnimation();
+      });
     });
   }
 
-  // Function to handle the animation of the preloader logo
-  handlePreloaderLogoAnimation() {
-    let logoWidth;
-    let logoLeft;
-    let logoTop;
-    if (isMobileDevice()) {
-      logoWidth = 4.5;
-      logoLeft = 1.6;
-      logoTop = 2;
-    } else {
-      logoWidth = 4.5;
-      logoLeft = 10;
-      logoTop = 4;
-    }
+  loadingAnimation(progress) {
+    this.animation.to(".clipRect", {
+      attr: {
+        y: `${100 * (1 - progress)}%`,
+      },
+      ease: "power1.inOut",
+      delay: () => {
+        return this.isFirstCall ? 0.5 : 0;
+      },
+    });
+    this.isFirstCall = false;
+  }
 
-    gsap
+  loadedAnimation() {
+    const logoPosition = {
+      width: 4.5,
+      left: this.isMobile ? 1.6 : 10,
+      top: this.isMobile ? 2 : 4,
+    };
+    const { width, left, top } = logoPosition;
+
+    this.logoTimeline = gsap.timeline();
+    this.logoTimeline
       .to(this.preloaderLogo, {
         scale: 1.1,
         duration: 0.25,
         ease: "power3.out",
       })
+      .to(this.preloaderLogo, {
+        top: `${top}rem`,
+        left: `${left}rem`,
+        width: `${width}rem`,
+        transform: "translate(0,0)",
+        ease: "power2.inOut",
+        duration: 1,
+      })
       .then(() => {
-        gsap.to(this.preloaderLogo, {
-          top: `${logoTop}rem`,
-          left: `${logoLeft}rem`,
-          width: `${logoWidth}rem`,
-          transform: "translate(0,0)",
-          ease: "power2.inOut",
-          duration: 1,
-          onComplete: this.handleFinalAnimations.bind(this),
+        this.animateOut(1.5, 0).then(() => {
+          this.logoAnimation();
         });
       });
   }
 
-  // Function to handle the final set of animations
-  handleFinalAnimations() {
-    this.animateOut(1.5, 0).then(() => {
-      this.animateLogo();
-    });
-  }
-
-  animateLogo() {
-    gsap.to(this.preloaderLogo, {
+  logoAnimation() {
+    this.logoTimeline.to(this.preloaderLogo, {
       autoAlpha: 0,
-      duration: 0,
+      duration: 0.5,
     });
-    gsap.to(this.navLogo, {
-      autoAlpha: 1,
-      duration: 0,
-    });
+    this.logoTimeline.to(
+      this.navLogo,
+      {
+        autoAlpha: 1,
+        duration: 0.5,
+      },
+      "<"
+    );
   }
 
   setMesh() {
     let noiseAmp;
-    if (isMobileDevice()) {
+    if (this.isMobile) {
       noiseAmp = 1.5;
     } else {
       noiseAmp = 4.0;
