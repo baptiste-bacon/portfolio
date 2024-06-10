@@ -10,10 +10,11 @@ import Camera from "./Camera";
 import { isMobileDevice } from "../utils.js";
 
 export default class Transition {
-  constructor(time, sizes, resources) {
+  constructor(time, sizes, resources, scroll) {
     this.resources = resources;
     this.isMobile = isMobileDevice();
 
+    this.scroll = scroll
     this.time = time;
     this.sizes = sizes;
 
@@ -92,6 +93,7 @@ export default class Transition {
       .then(() => {
         this.animateOut(1.5, 0).then(() => {
           this.logoAnimation();
+          this.scroll.start()
         });
       });
   }

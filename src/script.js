@@ -40,7 +40,7 @@ class App {
     this.dom2GlCanvas = document.querySelector("canvas.dom2Gl");
 
     this.initHome();
-    this.transition = new Transition(this.time, this.sizes, this.resources);
+    this.transition = new Transition(this.time, this.sizes, this.resources, this.lenis);
   }
 
   initHome() {
@@ -65,10 +65,7 @@ class App {
 
   initLenis() {
     this.lenis = new Lenis();
-
-    this.lenis.on("scroll", (e) => {
-      // this.dom2Gl.scroll(e);
-    });
+    this.lenis.stop()
 
     // fix for id links
     document.querySelectorAll('a[href^="#"]').forEach((el) => {
