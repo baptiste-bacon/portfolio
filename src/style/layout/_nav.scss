@@ -19,6 +19,8 @@
   }
 
   &Inner {
+    pointer-events: none;
+
     position: fixed;
     top: 0;
     width: 100%;
@@ -37,6 +39,8 @@
   }
 
   &Logo {
+    pointer-events: all;
+
     opacity: 0;
     visibility: hidden;
 
@@ -84,6 +88,8 @@
   }
 
   &List {
+    pointer-events: all;
+
     display: flex;
     gap: 6.4rem;
 
