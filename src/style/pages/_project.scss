@@ -165,10 +165,10 @@
   .container {
     display: flex;
     flex-direction: column;
-    gap: 30rem;
+    gap: 10rem;
 
     @media (max-width: 576px) {
-      gap: 15rem;
+      gap: 10rem;
     }
 
     &Figure {
