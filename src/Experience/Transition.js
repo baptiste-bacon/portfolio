@@ -59,11 +59,12 @@ export default class Transition {
       attr: {
         y: `${100 * (1 - progress)}%`,
       },
-      ease: "power1.inOut",
+      duration:1,
+      // ease: "power1.inOut",
       delay: () => {
-        return this.isFirstCall ? 0.5 : 0;
+        return this.isFirstCall ? 1 : 0;
       },
-    });
+    },"<");
     this.isFirstCall = false;
   }
 
@@ -88,7 +89,7 @@ export default class Transition {
         width: `${width}rem`,
         transform: "translate(0,0)",
         ease: "power2.inOut",
-        duration: 1,
+        duration: 0.8,
       })
       .then(() => {
         this.animateOut(1.5, 0).then(() => {
@@ -107,7 +108,7 @@ export default class Transition {
       this.navLogo,
       {
         autoAlpha: 1,
-        duration: 0.5,
+        duration: 0.5
       },
       "<"
     );

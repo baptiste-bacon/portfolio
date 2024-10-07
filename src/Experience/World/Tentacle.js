@@ -76,11 +76,11 @@ export default class Tentacle {
             this.sizes.height * this.sizes.pixelRatio
           )
         ),
-        uShadowRepetitions: new THREE.Uniform(55),
+        uShadowRepetitions: new THREE.Uniform(2),
         uShadowColor: new THREE.Uniform(
           new THREE.Color(materialParameters.shadowColor)
         ),
-        uLightRepetitions: new THREE.Uniform(55),
+        uLightRepetitions: new THREE.Uniform(2),
         uLightColor: new THREE.Uniform(
           new THREE.Color(materialParameters.lightColor)
         ),

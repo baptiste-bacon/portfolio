@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
-import sources from "./sources.js";
-import Resources from "./Utils/Resources.js";
+// import sources from "./sources.js";
+// import Resources from "./Utils/Resources.js";
 
 import Debug from "./Utils/Debug.js";
 import Sizes from "./Utils/Sizes.js";
@@ -31,7 +31,7 @@ export default class Experience {
     this.camera.instance.position.set(6, 4, 8);
 
     this.renderer = new Renderer(this);
-    this.renderer.instance.setClearColor(0x2d0037, 1);
+    this.renderer.instance.setClearColor(0x070707, 1);
     this.world = new World(this);
 
     this.paused = true;

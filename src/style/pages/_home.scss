@@ -44,7 +44,7 @@
   }
 
   .about {
-    font-variation-settings: "wght" 800;
+    font-variation-settings: "wght" 200;
 
     padding: 8rem 0 20rem;
 
@@ -61,14 +61,16 @@
     }
 
     &Text {
-      font-size: 9.4rem;
+      font-size: 7.2rem;
       color: $color-white;
+      line-height: 6.6rem;
 
-      text-align: center;
+      // text-align: center;
       // text-transform: uppercase;
 
       @media (max-width: 576px) {
-        font-size: 4rem;
+        font-size: 3.2rem;
+        line-height: 3.4rem;
       }
     }
   }
@@ -116,8 +118,7 @@
         span {
           cursor: pointer;
 
-          transition: font-variation-settings 0.5s
-          ease-out, color ease-out 0.5s;
+          transition: font-variation-settings 0.5s ease-out, color ease-out 0.5s;
         }
 
         &:hover {
@@ -125,8 +126,8 @@
             color: $color-p7;
             font-variation-settings: "wght" 500;
 
-            transition: font-variation-settings 0.4s
-            ease-out, color ease-out 0.8s;
+            transition: font-variation-settings 0.4s ease-out,
+              color ease-out 0.8s;
           }
 
           .highlightItem__figure {
@@ -298,9 +299,9 @@
       font-size: 9.6rem;
       font-variation-settings: "wght" 700;
       color: $color-p7;
-      transition: color 0.8s ease-out;
+      transition: color 0.6s ease-out;
 
-      &:hover{
+      &:hover {
         color: $color-white;
       }
 
